@@ -1,0 +1,14 @@
+GNU C library manual - Provides detailed examples of libc function calls in a way that is more readable than man pages.
+http://www.gnu.org/software/libc/manual/
+
+Advanced Linux Programming - Free book:
+http://www.advancedlinuxprogramming.com/alp-folder/
+
+Other good (not free) books with detailed information about Systems Programming on Linux:
+"Linux System Programming: Talking Directly to the Kernel and C Library", Robert Love
+http://shop.oreilly.com/product/9780596009588.do
+
+"The Linux Programming Interface: A Linux and UNIX System Programming Handbook", Michael Kerrisk
+http://books.google.com/books?id=2SAQAQAAQBAJ&lpg=PP1&pg=PP1#v=onepage&q&f=false
+
+

@@ -1,0 +1,26 @@
+===GENERAL STRATEGIES FOR DEBUGGING C PROGRAMS===
+
+1) Check all return values. "man functionName" will provide documentation for many functions. To search a man page, press 'Home' or PageUp to make sure you are at the top of the page. Type '/something' to search for something (case sensitive) and then press enter when you are done typing. To search for the same thing as you last search for, press '/' and then 'enter' repeatedly. 'q' will exit the man page.
+
+2) If checking all return values seems tedious, consider using assert(). assert() allows you to check return values or the values of variables and prints helpful messages when your assertions fail to be true. And, they are easy to turn off by passing the -DNDEBUG flag to gcc when you compile your code.
+
+3) Use "-Wall -Wextra -g" to enable nearly all compiler warnings. Fix compiler warnings whenever possible. Don't ignore them. Use the "-g" argument to enable debugging information.
+
+4) If your program segfaults, use gdb. See README-GDB.txt for instructions.
+
+5) If your program is acting strangely (or if it segfaults), use valgrind. See README-VALGRIND.txt for instructions.
+
+
+=== HAVE A WORKING PROGRAM? What other checks can I do before I turn in my programming assignment? ===
+
+1) Think about what tests the grader might use to test your program? What are all of the wrong ways that someone could run your program?
+
+2) Run your code through valgrind and cppcheck one last time. Even though your program is working well, you might be relying on undefined behavior.
+
+3) Try running your program on another computer (if you can). If you haven't tested it on the type of machine that the grader will be using (for example, a lab machine), do so.
+
+4) Try compiling your program with a different compiler (if you can). "clang" that works just like "gcc". Just change "gcc" in your makefile to "clang". Sometimes this can identify new problems that you didn't know about before and/or print different warnings. Unless you are told otherwise, you should expect that the grader will be using gcc for y our program.
+
+5) Try compiling and running with "-O2" and without "-g". By making the compiler do more optimization, it might uncover undefined behaviors that you didn't know about previously. Unless you are told otherwise, you probably DON'T want to turn in a makefile that is using -O2. For typical assignments, the performance gain from turning on optimizations is not worthwhile. Also, keeping "-g" in the makefile that you submit will make it easier for the grader to run gdb or valgrind if they need to.
+
+6) Compiling your code using the "clang" compiler and passing the -fsanitize=??? where ??? is "undefined", "integer" or "address". When you compile your program with these options, the compiler will insert additional checks into your code that may print errors/warnings when you run your program. For more details, see:   http://clang.llvm.org/docs/UsersManual.html#controlling-code-generation

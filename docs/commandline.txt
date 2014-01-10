@@ -1,0 +1,16 @@
+A list of useful commands that can complement some of the example programs in this repository.
+
+netstat -atcp
+* Lists sockets on your computer
+* -a - show listening sockets and current connections
+* -t - Show TCP sockets (-u shows UDP sockets, -x unix domain sockets, -w raw sockets)
+* -n to disable IP->hostname resolution
+* -p show the name of the processes
+* -c run the command continously
+
+xxd somefile.dat
+* hexdump utility. First column is the address, next columns are the bytes in hexadecimal. Last column is an ASCII representation of the file.
+
+pmap pid
+ * Reports the memory map of a process.
+

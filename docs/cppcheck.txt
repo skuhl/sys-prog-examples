@@ -1,0 +1,7 @@
+cppcheck can be used to catch some common errors.
+
+Simply run: "cppcheck *.c"
+
+For additional error checks, try: "cppcheck --enable=all --inconclusive *.c"
+
+For additional explanation about what some of the messages mean, try adding the "--verbose" flag.

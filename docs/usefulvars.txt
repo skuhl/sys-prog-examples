@@ -1,0 +1,15 @@
+int errno
+  An int that is set to a value by some functions if an error occurs.
+  See errno.c example and "man errno". May be implemented with the C
+  preprocessor.
+
+FILE *stdin  
+FILE *stdout
+FILE *stderr
+  A FILE* representing the stdin, stdout, and stderr streams. Defined in
+  stdio.h. Can be used with fopen, fprintf, etc
+  
+STDIN_FILENO=0
+
+
+EXIT_SUCCESS

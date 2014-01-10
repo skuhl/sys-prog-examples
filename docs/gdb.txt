@@ -1,0 +1,12 @@
+To use GDB to determine where your code is crashing:
+
+Compile your program with the "-g" flag.
+
+./gdb --args ./myProgramToRun arg1 arg2
+
+At the gdb prompt, type "run"
+
+When the program crashes, type "bt"
+
+Type "quit" to finish using gdb.
+

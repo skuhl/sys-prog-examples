@@ -1,0 +1,9 @@
+To use Valgrind, run "valgrind ./programToRun arg1 arg2". Look at the output. If it recommends that you rerun valgrind with additional options, consider doing so.
+
+Besides running valgrind as described above, the next most common way to do it is to run: "valgrind --leak-check=full ./programToRun arg1 arg2".
+
+If Valgrind shows a PROBLEM INSIDE OF A FUNCTION THAT YOU DID NOT WRITE, then there are two possibilities: (1) The function you are calling has a bug in it. (2) You are calling the function in an incorrect way. I have never encountered a standard C function that has a real bug that I have encountered. Therefore you should assume that you are calling the function with the wrong arguments or at the wrong time. In this case, valgrind's description of the problem may not make much sense. It is usually safe to ignore the message and try to make sure that you are using the function correctly.
+
+If Valgrind shows you a PROBLEM IN ONE OF YOUR FUNCTIONS, then valgrinds description of the problem is usually pretty accurate.
+
+If you are using complex libraries (for example, graphical toolkits, 3D graphics, etc.), it is possible that simply using a library will introduce valgrind errors/warnings even if you aren't doing anything wrong. This is easy to verify by using a very simple test case that you are sure is correct and recognizing that warnings/errors that you see may be unavoidable.

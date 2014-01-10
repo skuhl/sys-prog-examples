@@ -1,0 +1,4 @@
+These programs are compiled using -std=c99 to compile ISO C programs. However, some examples use POSIX C features. To enable POSIX C features in a program compiled with -std=c99, you can do "#define _GNU_SOURCE" at the top of your code.
+
+For table of functions and the standard that defines the function, see:
+http://www.schweikhardt.net/identifiers.html
