@@ -19,7 +19,7 @@ To ensure that your copy of the repository is up-to-date, run the following when
 
     git pull
 
-If you have made changes to your programs, "git pull" fails, and you don't want to save your changes, run the following when you are in the sys-prog-examples directory:
+If you want to ensure that your copy of the repository exactly matches the latest version of the this repository, run the following when you are in the sys-prog-examples directory (this will delete any local files you added to the directory!):
 
-	git reset --hard HEAD
-	git pull
+	git fetch --all
+	git reset --hard origin/master
