@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+if [[ -r "./liberr.so" ]]; then
+   LIBERR_PATH="./liberr.so"
+elif [[ -r "/usr/lib/liberr.so" ]]; then
+   LIBERR_PATH="/usr/lib/liberr.so"
+elif [[ -r "/lib/liberr.so" ]]; then
+   LIBERR_PATH="/lib/liberr.so"
+else
+	echo "Can't find liberr.so."
+	exit 1
+fi
+
+if [[ $# -gt 0 ]]; then
+   LD_PRELOAD=${LIBERR_PATH} "${@}"
+else
+   echo "Usage: $0 programToRun arg1 arg2 ..."
+fi
+	
