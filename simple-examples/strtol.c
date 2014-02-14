@@ -46,7 +46,7 @@ int main (void)
 	convertHexToDec("0x7ffffffffffffffe"); // near overflow
 	convertHexToDec("0x7fffffffffffffff"); // LONG_MAX on many machines
 	convertHexToDec("0x8000000000000000"); // Actual overflow
-	convertHexToDec("1xyz2"); // ignore characters after first non-hex character
+	convertHexToDec("1xyz2"); // ignore characters when a non-hex character is encountered
 	convertHexToDec("xyz2"); // same as zero
 	convertHexToDec(""); // same as zero
 	
