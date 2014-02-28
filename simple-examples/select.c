@@ -32,10 +32,13 @@ int main(void)
 	tv.tv_sec = 5;
 	tv.tv_usec = 0; // microseconds
 
-	int retval = select(1, &rfds, NULL, NULL, &tv);
+	// The first parameter to select() is nfds: The number of the
+	// highest file descriptor that might be set in rfds.
+	
+	int retval = select(STDIN_FILENO, &rfds, NULL, NULL, &tv);
 	// select() may have changed the value of tv. Linux sets it to the
 	// remaining time that wasn't slept. Many other implementations do
-	// not do this. the POSIX standard permits either behavior.
+	// not do this. The POSIX standard permits either behavior.
 
 	if (retval == -1)
 		perror("select()");
