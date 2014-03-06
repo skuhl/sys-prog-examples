@@ -18,51 +18,51 @@
 
 int main(int argc, char *argv[])
 {
-    int sockfd;
-    struct addrinfo hints, *servinfo, *p;
-    int rv;
-    int numbytes;
+	int sockfd;
+	struct addrinfo hints, *servinfo, *p;
+	int rv;
+	int numbytes;
 
-    if (argc != 2) {
-	    fprintf(stderr,"usage: %s hostname\n", argv[0]);
-        exit(1);
-    }
+	if (argc != 2) {
+		fprintf(stderr,"usage: %s hostname\n", argv[0]);
+		exit(1);
+	}
 
-    memset(&hints, 0, sizeof hints);
-    hints.ai_family = AF_UNSPEC;
-    hints.ai_socktype = SOCK_DGRAM;
+	memset(&hints, 0, sizeof hints);
+	hints.ai_family = AF_UNSPEC;
+	hints.ai_socktype = SOCK_DGRAM;
 
-    if ((rv = getaddrinfo(argv[1], SERVERPORT, &hints, &servinfo)) != 0) {
-        fprintf(stderr, "getaddrinfo: %s\n", gai_strerror(rv));
-        return 1;
-    }
+	if ((rv = getaddrinfo(argv[1], SERVERPORT, &hints, &servinfo)) != 0) {
+		fprintf(stderr, "getaddrinfo: %s\n", gai_strerror(rv));
+		return 1;
+	}
 
-    // loop through all the results and make a socket
-    for(p = servinfo; p != NULL; p = p->ai_next) {
-        if ((sockfd = socket(p->ai_family, p->ai_socktype,
-                p->ai_protocol)) == -1) {
-            perror("socket");
-            continue;
-        }
+	// loop through all the results and make a socket
+	for(p = servinfo; p != NULL; p = p->ai_next) {
+		if ((sockfd = socket(p->ai_family, p->ai_socktype,
+		                     p->ai_protocol)) == -1) {
+			perror("socket");
+			continue;
+		}
 
-        break;
-    }
+		break;
+	}
 
-    if (p == NULL) {
-        fprintf(stderr, "talker: failed to bind socket\n");
-        return 2;
-    }
+	if (p == NULL) {
+		fprintf(stderr, "talker: failed to bind socket\n");
+		return 2;
+	}
 
-    if ((numbytes = sendto(sockfd, "hello world", strlen("hello world"), 0,
-             p->ai_addr, p->ai_addrlen)) == -1) {
-        perror("sendto");
-        exit(1);
-    }
+	if ((numbytes = sendto(sockfd, "hello world", strlen("hello world"), 0,
+	                       p->ai_addr, p->ai_addrlen)) == -1) {
+		perror("sendto");
+		exit(1);
+	}
 
-    freeaddrinfo(servinfo);
+	freeaddrinfo(servinfo);
 
-    printf("sent %d bytes to %s\n", numbytes, argv[1]);
-    close(sockfd);
+	printf("sent %d bytes to %s\n", numbytes, argv[1]);
+	close(sockfd);
 
-    return 0;
+	return 0;
 }
