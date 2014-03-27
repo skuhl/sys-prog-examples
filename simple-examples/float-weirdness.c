@@ -17,6 +17,7 @@ int main(void)
 	printf("sum (should be 1000 if no rounding errors): %f\n", sum);
 	printf("\n");
 
+	// There are two zeros.
 	float zero1 =  0.0f;
 	float zero2 = -0.0f;
 	// Use a union to reliably print out floating point number in hex
