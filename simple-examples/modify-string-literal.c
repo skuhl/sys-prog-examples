@@ -4,11 +4,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-void changeToX(char *str)
-{
-	*str = 'X'; // change first byte of char to an X
-}
-
 int main(void)
 {
 	// This will work fine, strdup() will malloc some space.
