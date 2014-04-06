@@ -67,7 +67,5 @@ int main(void)
 	printf("\n");
 
 
-
-
 	printf("A percent sign: %%\n");
 }
