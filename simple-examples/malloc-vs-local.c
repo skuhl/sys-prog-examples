@@ -39,7 +39,7 @@ char *stringLocal(void)
 	// this string after returning from this function, it may print
 	// garbage memory.
 	char str[] = "Hello world";
-	return str;
+	return str; // intentionally return a locally declared string!
 }
 
 int main(void)

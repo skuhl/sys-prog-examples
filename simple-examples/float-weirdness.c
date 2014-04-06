@@ -1,8 +1,10 @@
 // Scott Kuhl
+#define _GNU_SOURCE
 #include <stdio.h>
 #include <float.h> // for FLT_MIN
+#include <stdint.h>
 
-#define _GNU_SOURCE
+
 #include <math.h> // for INFINITY and NAN definitions
 
 int main(void)
@@ -12,12 +14,19 @@ int main(void)
 	// small errors can accumulate over time.
 	for(int i=0; i<10000; i++)
 		sum += tenth;
-	printf("sum: %f\n", sum);
+	printf("sum (should be 1000 if no rounding errors): %f\n", sum);
 	printf("\n");
 
+	// There are two zeros.
 	float zero1 =  0.0f;
 	float zero2 = -0.0f;
-	printf("both zero, two values: 0x%x 0x%x\n", zero1, zero2);
+	// Use a union to reliably print out floating point number in hex
+	// without compiler warnings. Note that sizeof(float) must be 4
+	// bytes for this to work...
+	union { float f; uint32_t u; } union1, union2;
+	union1.f = zero1;
+	union2.f = zero2;
+	printf("both zero, two values: 0x%x 0x%x\n", union1.u, union2.u);
 	if(zero1 == zero2)
 		printf("The two zeros equal each other.\n");
 	else
@@ -60,6 +69,39 @@ int main(void)
 	printf("NaN+1= %f\n", mynan+1);
 	printf("NaN+negative infinity= %f\n", mynan+myinf);
 
+
+	printf("a, b, and c should all be the same value (but might not be since floating-point math isn't associative)\n");
+	/* Floating-point math is not associative. For more information, see:
+	   http://stackoverflow.com/questions/6430448/
+	   Compiling with -ffast-math can make math operations faster at the
+	   expense of accuracy. */
+	float val = .4321;
+	float a =  val * val * val * val * val * val;
+	float b = (val * val * val)*(val * val * val);
+	float c = (val * val)*(val * val)*(val * val);
+	printf("a: %0.40f\n", a);
+	printf("b: %0.40f\n", b);
+	printf("c: %0.40f\n", c);
+
+
+	printf("a, b, and c should all be the same value (but might not be since floating-point math isn't associative)\n");
+	/* Floating-point math is not associative. For more information, see:
+	   http://stackoverflow.com/questions/6430448/
+	   The numbers for this example came from:
+	   http://cavern.uark.edu/~arnold/4363/FPArith_ex.pdf
+	*/
+	
+	float val1 =    0.003245678;
+	float val2 =  212.3454;
+	float val3 = -212.3456;
+	a = val1+val2+val3;
+	b = val1+(val2+val3);
+	c = val3+val2+val1;
+	printf("a: %0.40f\n", a);
+	printf("b: %0.40f\n", b);
+	printf("c: %0.40f\n", c);
+
+	
 // http://www.gnu.org/software/libc/manual/html_node/Infinity-and-NaN.html
 	// Floating point exception (SIGFPE) may occur when you do these calculations, but you can override that behavior.
 	// 1/0 = Infinity

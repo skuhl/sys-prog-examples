@@ -24,6 +24,8 @@ void checkFile(const char *filename)
 
 int main(int argc, char **argv)
 {
+	(void)argc; // we don't use argc, causes compiler not to warn us about it.
+	
 	checkFile(argv[0]);
 	checkFile("/this/does/not/exist");
 	checkFile("/home");

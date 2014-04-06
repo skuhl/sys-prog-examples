@@ -1,7 +1,13 @@
 /* Based on: http://beej.us/guide/bgnet/output/html/singlepage/bgnet.html#datagram (code from "Beej's Guide to Network Programming" is public domain).
  */
-// This server only listens on the first address returned by getaddrinfo().
 // Modifications by: Scott Kuhl
+//
+// This server listens on all available network addresses (IPv4, IPv6)
+// using one IPv6 socket. Connections from IPv4 will have addresses
+// that look like "::ffff:127.0.0.1". If either IPv4 or IPv6 is
+// missing on the machine, this server will listen on whatever is
+// available.
+
 #define _GNU_SOURCE
 #include <stdio.h>
 #include <stdlib.h>
@@ -13,6 +19,7 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <netdb.h>
+#include <poll.h>
 
 #define MYPORT "4950"    // the port users will be connecting to
 
@@ -49,20 +56,61 @@ int main(void)
 		return 1;
 	}
 
+
 	// loop through all the results and bind to the first we can
+	int haveBound = 0;
 	for(p = servinfo; p != NULL; p = p->ai_next) {
+		if(p->ai_family != AF_INET6) // only use IPv6 addresses
+			continue;
 		if ((sockfd = socket(p->ai_family, p->ai_socktype,
-		                     p->ai_protocol)) == -1) {
+		                                p->ai_protocol)) == -1) {
 			perror("socket");
 			continue;
+		}
+		/* This turns V6_ONLY off (which is the default on Linux). We
+		 * are setting it to ensure that it is off because different
+		 * OS's may default to other values or an OS might have its
+		 * default setting modified. */
+		int no = 0;     
+		if(setsockopt(sockfd, IPPROTO_IPV6, IPV6_V6ONLY, &no, sizeof(int)) == -1) {
+			close(sockfd);
+			perror("setsockopt");
 		}
 		if (bind(sockfd, p->ai_addr, p->ai_addrlen) == -1) {
 			close(sockfd);
 			perror("bind");
 			continue;
 		}
+		// If we got here, we successfully bound socket to IPv6 (and,
+		// on Linux, this means we also are listening on IPv4 too as
+		// long as V6ONLY left to the default value of false).
+		haveBound = 1;
 
 		break;
+	}
+
+	/* If we didn't bind to an IPv6 address (that is also listening on
+	 * IPv4), try binding to IPv4. */
+	if(!haveBound)
+	{
+		for(p = servinfo; p != NULL; p = p->ai_next) {
+			if(p->ai_family != AF_INET) // only use IPv4 addresses
+				continue;
+			
+			if ((sockfd = socket(p->ai_family, p->ai_socktype,
+			                     p->ai_protocol)) == -1) {
+				perror("socket");
+				continue;
+			}
+			if (bind(sockfd, p->ai_addr, p->ai_addrlen) == -1) {
+				close(sockfd);
+				perror("bind");
+				continue;
+			}
+			// If we got here, we successfully bound socket to IPv4 only.
+			haveBound = 1;
+			break;
+		}
 	}
 
 	if (p == NULL) {

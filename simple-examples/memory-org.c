@@ -35,6 +35,8 @@ void addStack(void)
 
 int main(int argc, char *argv[])
 {
+	(void)argc; // we don't use argc, causes compiler not to warn us about it.
+	
 	// The output of this program may change over a series of runs due to:
 	// https://en.wikipedia.org/wiki/Address_space_layout_randomization
 	int i = 10;

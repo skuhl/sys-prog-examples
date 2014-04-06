@@ -14,7 +14,7 @@
 
 // For more information: http://wiki.osdev.org/GCC_Stack_Smashing_Protector
 
-int stackExample(char *copyIntoBuf)
+void stackExample(char *copyIntoBuf)
 {
 	char buf[5];
 	strcpy(buf, copyIntoBuf);
