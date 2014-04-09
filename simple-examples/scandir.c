@@ -19,10 +19,12 @@ void printFilesInDir(char *dir)
 		return;
 	}
 	for(int i=0; i<count; i++)
-	{
 		printf("%s\n", dirList[i]->d_name);
-	}
 	printf("\n\n");
+
+	// Free space
+	for(int i=0; i<count; i++)
+		free(dirList[i]);
 	free(dirList);
 }
 
