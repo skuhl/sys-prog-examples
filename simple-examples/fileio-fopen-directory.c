@@ -22,7 +22,7 @@ int isdir(char *path)
 	struct stat st;
 	if(stat(path, &st) != 0)
 	{
-		perror("stat:");
+		perror("stat");
 		exit(EXIT_FAILURE);
 	}
 	return S_ISDIR(st.st_mode);
@@ -46,7 +46,7 @@ int main(void)
 		perror("fopen");
 		cleanup();
 		exit(EXIT_FAILURE);
-	};
+	}
 
 	printf("We fopen()'d a directory?!\n");
 
