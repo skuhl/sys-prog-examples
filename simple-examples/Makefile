@@ -8,7 +8,7 @@ EXEC=$(SOURCE:.c=)
 # specific programs that use the libraries.
 LIBS=-lrt -lpthread -lreadline -ldl
 
-CFLAGS=-Wall -Wextra -std=c99
+CFLAGS=-Wall -Wextra -std=c99 -D_FORTIFY_SOURCE=1
 DEBUG=-g
 OPT=-O2
 
