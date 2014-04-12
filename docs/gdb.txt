@@ -10,3 +10,6 @@ When the program crashes, type "bt"
 
 Type "quit" to finish using gdb.
 
+
+=== Core dump files ===
+If your program left a core dump file after it crashed, you can use the resulting core file to debug what happened. See the core-dump.c example program for a demonstration of how this works.
