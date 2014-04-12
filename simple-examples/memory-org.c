@@ -20,7 +20,7 @@ int globalVar = 10;
 
 void printAddress(char *str, void *ptr)
 {
-	printf("%016p or %20lu - %s\n", ptr, (uintptr_t) ptr, str);
+	printf("%16p or %20lu - %s\n", ptr, (uintptr_t) ptr, str);
 }
 
 void addStack(void)
