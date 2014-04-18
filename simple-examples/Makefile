@@ -8,7 +8,7 @@ EXEC=$(SOURCE:.c=)
 # specific programs that use the libraries.
 LIBS=-lrt -lpthread -lreadline -ldl
 
-CFLAGS=-Wall -Wextra -std=c99 -D_FORTIFY_SOURCE=1
+CFLAGS=-Wall -Wextra -std=c99 -D_FORTIFY_SOURCE=2
 DEBUG=-g
 OPT=-O2
 
@@ -19,7 +19,7 @@ all: ${EXEC}
 
 .SECONDEXPANSION:
 ${EXEC}: $$(addsuffix .c, $$@) Makefile
-	${CC} ${CFLAGS} ${DEBUG} -o $@ $@.c ${LIBS}
+	${CC} ${CFLAGS} ${DEBUG} ${OPT} -o $@ $@.c ${LIBS}
 
 
 .PHONY: clean tar

@@ -4,7 +4,7 @@
 
 2) Check the return values of all function calls to ensure that they worked correctly. If the return values indicate an error, display an appropriate error message or attempt to recover from the error. One quick way is to check return values with assert() (see assert.c example). However, it is best to use assertions to check for things that would be a bug in the program and regular error handling (exceptions, if statements, etc) to handle errors that do not correspond with bugs in a program (for example, not having permission to read from a file is an error---not a bug in the program). For a discussion of this, see: http://blog.regehr.org/archives/1091
 
-3) Use "-Wall -Wextra -g -D_FORTIFY_SOURCE=1" to enable nearly all compiler warnings, include debugging information in the executable you create, and check for some types of buffer overflow problems. Fix compiler warnings whenever possible. Don't ignore them.
+3) Use "-Wall -Wextra -g -D_FORTIFY_SOURCE=2 -O2" to enable nearly all compiler warnings, include debugging information in the executable you create, and check for some types of buffer overflow problems. Fix compiler warnings whenever possible. Don't ignore them.
 
 4) If your program segfaults, use gdb. See gdb.txt for instructions.
 
@@ -21,6 +21,6 @@
 
 4) Try compiling your program with a different compiler (if you can). "clang" that works just like "gcc". Just change "gcc" in your makefile to "clang". Sometimes this can identify new problems that you didn't know about before and/or print different warnings. Unless you are told otherwise, you should expect that the grader will be using gcc for y our program.
 
-5) Try compiling and running with "-O2" and without "-g". By making the compiler do more optimization, it might uncover undefined behaviors that you didn't know about previously. Unless you are told otherwise, you probably DON'T want to turn in a makefile that is using -O2. For typical assignments, the performance gain from turning on optimizations is not worthwhile. Also, keeping "-g" in the makefile that you submit will make it easier for the grader to run gdb or valgrind if they need to.
+5) Try compiling and running with "-Wall -Wextra -g -D_FORTIFY_SOURCE=2 -O2". When you turn in your assignment, you may want to revert back to simply "-g", or "-Wall -g" or whatever is required by the instructor. In general, it is a good idea to at least include "-g" in case the grader wants to run your program with GDB or Valgrind.
 
 6) Compiling your code using the "clang" compiler and passing the -fsanitize=??? where ??? is "undefined", "integer" or "address". When you compile your program with these options, the compiler will insert additional checks into your code that may print errors/warnings when you run your program. For more details, see:   http://clang.llvm.org/docs/UsersManual.html#controlling-code-generation
