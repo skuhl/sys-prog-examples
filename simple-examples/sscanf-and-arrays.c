@@ -17,4 +17,6 @@ int main(void)
 	// Correct:
 	sscanf("6 six", "%d %s", &i, str);
 	printf("Will be '6 six': %d %s\n", i, str);
+
+	return 0;
 }
