@@ -32,7 +32,7 @@ int main(void)
 	//
 	// 2nd argument is the number of items in the array.
 	//
-	// 3rd argument is time to wait in seconds
+	// 3rd argument is time to wait in milliseconds
 	int retval = poll(&fds, 1, 5000); 
 		
 	if (retval == -1)
