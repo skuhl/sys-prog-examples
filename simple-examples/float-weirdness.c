@@ -93,9 +93,9 @@ int main(void)
 	float val1 =    0.003245678;
 	float val2 =  212.3454;
 	float val3 = -212.3456;
-	a = val1+val2+val3;
-	b = val1+(val2+val3);
-	c = val3+val2+val1;
+	float a = val1+val2+val3;
+	float b = val1+(val2+val3);
+	float c = val3+val2+val1;
 	printf("a: %0.40f\n", a);
 	printf("b: %0.40f\n", b);
 	printf("c: %0.40f\n", c);
