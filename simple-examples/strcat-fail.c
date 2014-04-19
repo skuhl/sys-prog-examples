@@ -2,11 +2,12 @@
 //
 // This program contains a bug. Your compiler may not print a warning
 // (even with -Wextra). It might run without crashing. It might print
-// "hello world" (or might not). cppcheck and valgrind might (or
-// might not) detect this problem. It might run differently depending
-// on if you compile it with -g and/or -O2.
+// "hello world" (or might not). cppcheck and valgrind might (or might
+// not) detect this problem. It might run differently depending on if
+// you compile it with -g and/or -O2. Turning on more optimization may
+// help the compiler detect the error.
 //
-// See: https://sourceforge.net/apps/trac/cppcheck/ticket/5225
+// See: http://sourceforge.net/apps/trac/cppcheck/ticket/4241
 #include <stdio.h>
 #include <string.h>
 
@@ -23,8 +24,8 @@ int main(void)
 	strcat(str,&d); // WRONG.
 	/* The d variable is not a null terminated string. Therefore,
 	   strcat can't figure out when to stop copying from d into
-	   str. String literals (such as "hello worl" above are
-	   automatically null-terminated). */
+	   str. The str string stored in the char array is
+	   null-terminated. */
 	puts(str);
 	return 0;
 }

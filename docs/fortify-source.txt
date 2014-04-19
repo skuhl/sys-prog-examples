@@ -1,0 +1,9 @@
+You can use "#define _FORTIFY_SOURCE 1" in your C code or use "-D_FORTIFY_SOURCE=1"  with GCC to enable additional buffer overflow checks. Some of the checks are identified at runtime and others are flagged as warnings at compile-time. These checks may not be turned on unless you also use -O1 or -O2 optimization.
+
+You can also set _FORTIFY_SOURCE to 2 for additional checks, but you might get some false positives.
+
+NOTE: On some Ubuntu machines, -D_FORTIFY_SOURCE=2 is set by default but is only activated when optimization is set to -O2.
+
+For more details, see:
+http://gcc.gnu.org/ml/gcc-patches/2004-09/msg02055.html
+Also see the manual for gcc: "man gcc"

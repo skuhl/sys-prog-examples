@@ -69,21 +69,20 @@ int main(void)
 	printf("NaN+1= %f\n", mynan+1);
 	printf("NaN+negative infinity= %f\n", mynan+myinf);
 
+	float inf1=INFINITY;
+	float inf2=INFINITY;
+	if(inf1 == inf2)
+		printf("Infinity == infinity\n");
+	else
+		printf("Infinity != infinity\n");
 
-	printf("a, b, and c should all be the same value (but might not be since floating-point math isn't associative)\n");
-	/* Floating-point math is not associative. For more information, see:
-	   http://stackoverflow.com/questions/6430448/
-	   Compiling with -ffast-math can make math operations faster at the
-	   expense of accuracy. */
-	float val = .4321;
-	float a =  val * val * val * val * val * val;
-	float b = (val * val * val)*(val * val * val);
-	float c = (val * val)*(val * val)*(val * val);
-	printf("a: %0.40f\n", a);
-	printf("b: %0.40f\n", b);
-	printf("c: %0.40f\n", c);
-
-
+	float nan1 = NAN;
+	float nan2 = NAN;
+	if(nan1 == nan2)
+		printf("NaN == NaN\n");
+	else
+		printf("NaN != NaN\n");
+	
 	printf("a, b, and c should all be the same value (but might not be since floating-point math isn't associative)\n");
 	/* Floating-point math is not associative. For more information, see:
 	   http://stackoverflow.com/questions/6430448/
@@ -94,9 +93,9 @@ int main(void)
 	float val1 =    0.003245678;
 	float val2 =  212.3454;
 	float val3 = -212.3456;
-	a = val1+val2+val3;
-	b = val1+(val2+val3);
-	c = val3+val2+val1;
+	float a = val1+val2+val3;
+	float b = val1+(val2+val3);
+	float c = val3+val2+val1;
 	printf("a: %0.40f\n", a);
 	printf("b: %0.40f\n", b);
 	printf("c: %0.40f\n", c);

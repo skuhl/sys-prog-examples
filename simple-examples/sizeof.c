@@ -33,9 +33,11 @@ int main(void)
 	printf("sizeof(short):       %zu (at least 2)\n", sizeof(short)); // SHRT_MIN to SHRT_MAX
 	printf("sizeof(void*):       %zu (typically 4 on 32 bit machines, 8 on 64 bit machines)\n", sizeof(void*));
 	// uintptr_t can be used to cast a pointer into an unsigned
-	// integer that has the same number of bits as a pointer on the
-	// machine that it is running on.
-	printf("sizeof(uintptr_t):   %zu (same size as a pointer)\n", sizeof(uintptr_t)); 
+	// integer. It can be converted back into a void* to get the
+	// original pointer once again. This means that it is probably the
+	// same size as void*, but not necessarily. See:
+	// http://stackoverflow.com/a/1846648
+	printf("sizeof(uintptr_t):   %zu (may be same size as a pointer)\n", sizeof(uintptr_t)); 
 
 	printf("\n");
 	printf("sizeof(pid_t):   %zu\n", sizeof(pid_t));

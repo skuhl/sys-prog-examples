@@ -8,7 +8,7 @@ EXEC=$(SOURCE:.c=)
 # specific programs that use the libraries.
 LIBS=-lrt -lpthread -lreadline -ldl
 
-CFLAGS=-Wall -Wextra -std=c99
+CFLAGS=-Wall -Wextra -std=c99 -D_FORTIFY_SOURCE=2
 DEBUG=-g
 OPT=-O2
 
@@ -19,7 +19,7 @@ all: ${EXEC}
 
 .SECONDEXPANSION:
 ${EXEC}: $$(addsuffix .c, $$@) Makefile
-	${CC} ${CFLAGS} ${DEBUG} -o $@ $@.c ${LIBS}
+	${CC} ${CFLAGS} ${DEBUG} ${OPT} -o $@ $@.c ${LIBS}
 
 
 .PHONY: clean tar
@@ -27,7 +27,8 @@ ${EXEC}: $$(addsuffix .c, $$@) Makefile
 # file.txt - some programs create this file.
 # gmon.out - created by programs compiled with -pg (see gprof-demo)
 # *.temp - Some programs might create a file named something.temp.
+# core - created by core-dump.c
 # We delete .o files even though we don't create them. Some people manually compiling their programs may create them!
 clean:
-	rm -f a.out file.txt gmon.out *.temp ${EXEC} ${EXEC:=.o} *~
+	rm -f a.out file.txt gmon.out *.temp ${EXEC} ${EXEC:=.o} core *~
 

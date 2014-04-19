@@ -30,7 +30,7 @@ void printFile()
 }
 
 
-// Private, shared example---read from file
+// File-backed, private example---read from file
 void readExample()
 {
 	createFile("hello world");
@@ -68,7 +68,7 @@ void readExample()
 	close(fd);
 }
 
-// Private, shared example---can write to mmapped memory, but won't be saved to file.
+// File-backed, private example---can write to mmapped memory, but won't be saved to file.
 void readExampleChange()
 {
 	createFile("hello world");
@@ -107,7 +107,7 @@ void readExampleChange()
 
 
 
-// Shared, private example---write to file.
+// File-backed, shared example---write to file.
 void writeExample()
 {
 	createFile("hello world");
@@ -190,6 +190,7 @@ void mmapAnonPrivate()
 
 	if(fork() == 0)
 	{
+		// If we are the child, print out the data.
 		for(unsigned int i=0; i<mmapLen; i++)
 			printf("child: ptr[%u] = %d\n", i, ptr[i]);
 #if 0
@@ -199,14 +200,19 @@ void mmapAnonPrivate()
 		printf("Child is done waiting.\n");
 		for(unsigned int i=0; i<mmapLen; i++)
 			printf("child ptr[%u] = %d\n", i, ptr[i]);
-		exit(EXIT_SUCCESS);
 #endif
+		printf("Child exited\n");
+		exit(EXIT_SUCCESS);
 	}
 
+	printf("Parent is writing data to the mmap'd area\n");
 	for(unsigned int i=0; i<mmapLen; i++)
 		ptr[i] = i;
-	
+	printf("Parent is done writing data to the mmap'd area\n");
+
+	printf("Parent is waiting for the child to finish\n");
 	wait(NULL); // wait for child to finish.
+	printf("Parent detected that child exited.\n");
 	
 	printf("Contents after we store values in memory.\n");
 	for(unsigned int i=0; i<mmapLen; i++)
@@ -240,25 +246,31 @@ void mmapAnonShared()
 
 	if(fork() == 0)
 	{
+		// The parent and child processes are now sharing the same piece of memory.
 		for(unsigned int i=0; i<mmapLen; i++)
 			printf("child: ptr[%u] = %d\n", i, ptr[i]);
+		printf("Child is putting non-zero data at the beginning of the mma'd area\n");
 		ptr[0] = 42; // indicate to parent that we printed stuff out.
 
-		printf("Child is waiting.\n");
+		printf("Child is waiting for non-zero data at the end of the mmap'd area...\n");
 		while(ptr[mmapLen-1] == 0); // wait for parent to change values
 		printf("Child is done waiting.\n");
 		for(unsigned int i=0; i<mmapLen; i++)
 			printf("child ptr[%u] = %d\n", i, ptr[i]);
+		printf("Child exited.\n");
 		exit(EXIT_SUCCESS);
 	}
 
-	printf("Parent is waiting.\n");
+	printf("Parent is waiting for non-zero data in the beginning of the mmap'd area.\n");
 	while(ptr[0] == 0); // wait for child to print out stuff.
-	printf("Parent is done waiting.\n");
+	printf("Parent is done waiting, writing data into entire mmap'd area...\n");
 	for(unsigned int i=0; i<mmapLen; i++)
 		ptr[i] = i;
-	
+	printf("Parent is done writing data\n");
+
+	printf("Parent is waiting for the child to finish\n");
 	wait(NULL); // wait for child to finish.
+	printf("Parent detected that child exited.\n");
 	
 	printf("Contents after we store values in memory.\n");
 	for(unsigned int i=0; i<mmapLen; i++)
