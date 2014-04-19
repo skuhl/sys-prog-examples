@@ -1,4 +1,5 @@
 // Scott Kuhl
+#define _GNU_SOURCE
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -6,6 +7,7 @@
 #include <limits.h> // for int/long/short min/max values
 #include <float.h>  // for float/double min/max values
 #include <stdint.h> // for int32_t, etc types
+#include <complex.h> // for complex types
 
 int main(void)
 {
@@ -13,12 +15,15 @@ int main(void)
 	printf("sizeof(i):     %zu\n", sizeof(i));
 	printf("sizeof(int):   %zu\n", sizeof(int));
 
+	// sizeof() on an array returns the size of the array.
 	char array[42];
 	printf("sizeof(array): %zu\n", sizeof(array));
 
-	char *m = (char*) malloc(sizeof(char)*10);
-	printf("sizeof(m):     %zu (actually size of char*)\n", sizeof(m));
-	free(m);
+	// sizeof() behaves differently with pointers and arrays. When
+	// sizeof() is called on a pointer, it returns the size of the
+	// type that the pointer points to.
+	char *arrayNew = array;
+	printf("sizeof(arrayNew):   %zu (actually size of char*)\n", sizeof(arrayNew));
 	printf("sizeof(char*): %zu\n", sizeof(char*));
 
 	printf("\nSize of common types on this computer:\n");
@@ -31,6 +36,7 @@ int main(void)
 	printf("sizeof(long):        %zu (at least 4)\n", sizeof(long)); // LONG_MIN to LONG_MAX
 	printf("sizeof(long long):   %zu (at least 8)\n", sizeof(long long)); // LLONG_MIN to LLONG_MAX
 	printf("sizeof(short):       %zu (at least 2)\n", sizeof(short)); // SHRT_MIN to SHRT_MAX
+	printf("sizeof(float complex): %zu (2*sizeof(float))\n", sizeof(float complex));
 	printf("sizeof(void*):       %zu (typically 4 on 32 bit machines, 8 on 64 bit machines)\n", sizeof(void*));
 	// uintptr_t can be used to cast a pointer into an unsigned
 	// integer. It can be converted back into a void* to get the
@@ -42,10 +48,14 @@ int main(void)
 	printf("\n");
 	printf("sizeof(pid_t):   %zu\n", sizeof(pid_t));
 	printf("sizeof(clock_t): %zu\n", sizeof(clock_t));
+	// size_t is used to count bytes. Capable of storing 0 through SIZE_MAX. (sizeof() returns a size_t)
 	printf("sizeof(size_t):  %zu\n", sizeof(size_t));
+	// ssize_t is guaranteed to store up to SSIZE_MAX, used to count bytes.
 	printf("sizeof(ssize_t): %zu\n", sizeof(ssize_t));
 	printf("sizeof(time_t):  %zu\n", sizeof(time_t));
-	printf("\nData types with guaranteed sizes (there are more types than these!):\n");
+
+	printf("\n");
+	printf("Data types with guaranteed sizes (there are more types than these!):\n");
 	printf("sizeof(int8_t):  %zu (should be 1)\n", sizeof(int8_t));
 	printf("sizeof(int16_t): %zu (should be 2)\n", sizeof(int16_t));
 	printf("sizeof(int32_t): %zu (should be 4)\n", sizeof(int32_t));
@@ -81,6 +91,10 @@ int main(void)
 
 	printf("\n");
 	printf("For floats, minimum values are the smallest value greater than 0\n");
+	// The *_MIN variables for floating point values correspond to the
+	// smallest number greater than 0 that the type can hold. Use
+	// -FLT_MAX if you want the smallest (i.e., most negative) value
+	// for a float.
 	printf("minimum value of a float: %f\n", FLT_MIN);
 	printf("maximum value of a float: %f\n", FLT_MAX);
 	printf("minimum value of a double: %lf\n", DBL_MIN);
@@ -88,5 +102,9 @@ int main(void)
 	printf("minimum value of a long double: %Lf\n", LDBL_MIN);
 	printf("maximum value of a long double: %Lf\n", LDBL_MAX);
 
+	printf("\n");
+	printf("Other:\n");
+	printf("maximum for ssize_t: %zu\n", SSIZE_MAX);
+	printf("maximum for size_t: %zu\n", SIZE_MAX);
 	return 0;
 }
