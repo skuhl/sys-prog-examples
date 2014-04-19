@@ -60,6 +60,12 @@ int main(void)
 	printf("sizeof(int16_t): %zu (should be 2)\n", sizeof(int16_t));
 	printf("sizeof(int32_t): %zu (should be 4)\n", sizeof(int32_t));
 	printf("sizeof(int64_t): %zu (should be 8)\n", sizeof(int64_t));
+	printf("sizeof(intmax_t): %zu (largest signed int)\n", sizeof(intmax_t));
+	printf("sizeof(uint8_t):  %zu (should be 1)\n", sizeof(uint8_t));
+	printf("sizeof(uint16_t): %zu (should be 2)\n", sizeof(uint16_t));
+	printf("sizeof(uint32_t): %zu (should be 4)\n", sizeof(uint32_t));
+	printf("sizeof(uint64_t): %zu (should be 8)\n", sizeof(uint64_t));
+	printf("sizeof(uintmax_t): %zu (largest unsigned int)\n", sizeof(uintmax_t));
 
 	// Defined in limit.h
 	//
