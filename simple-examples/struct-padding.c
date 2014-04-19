@@ -40,4 +40,5 @@ int main(void)
 	
 	printf("Packed struct: %zu\n", sizeof(packed_triplet));
 
+	return 0;
 }
