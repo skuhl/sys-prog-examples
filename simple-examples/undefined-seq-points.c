@@ -21,7 +21,9 @@ int main(void)
 	// Also, the standard says: The prior value shall be accessed only
 	// to determine the value to be stored.
 	int array[] = { 1, 2 };
-	array[i] = i++;    // causes gcc compilation error
+	array[i] = i++; // undefined
+	printf("%d\n", array[0]); // use array variable to prevent warning
+
 	// If we were following the standard, we would only access i to
 	// determine which new value we are going to store in i. Here, our
 	// access of i in a[i] is not being accessed to determine the

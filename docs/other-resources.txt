@@ -4,6 +4,12 @@ http://www.gnu.org/software/libc/manual/
 Advanced Linux Programming - Free book:
 http://www.advancedlinuxprogramming.com/alp-folder/
 
+C FAQ:
+http://c-faq.com/
+
+CERT C Coding Standard:
+https://www.securecoding.cert.org/confluence/display/seccode/CERT+C+Coding+Standard
+
 Other good (not free) books with detailed information about Systems Programming on Linux:
 "Linux System Programming: Talking Directly to the Kernel and C Library", Robert Love
 http://shop.oreilly.com/product/9780596009588.do
