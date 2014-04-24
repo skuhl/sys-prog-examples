@@ -52,6 +52,7 @@ int main(void)
 	printf("sizeof(size_t):  %zu\n", sizeof(size_t));
 	// ssize_t is guaranteed to store up to SSIZE_MAX, used to count bytes.
 	printf("sizeof(ssize_t): %zu\n", sizeof(ssize_t));
+	printf("sizeof(off_t): %zu\n", sizeof(off_t));
 	printf("sizeof(time_t):  %zu\n", sizeof(time_t));
 
 	printf("\n");
