@@ -109,5 +109,7 @@ int main(void)
 	// uint16_t htons(uint16_t hostshort);
 	// uint32_t ntohl(uint32_t netlong);
 	// uint16_t ntohs(uint16_t netshort);
-	
+
+	printf("\n");
+	printf("We created the file '%s'. You can safely delete it.");
 }
