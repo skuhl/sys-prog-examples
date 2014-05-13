@@ -60,20 +60,62 @@ int example_socket(struct addrinfo *ai)
 void example_setsockopt(int sock)
 {
 	/* This section of code is not strictly necessary for a server.
-	 * It eliminates a problem where you run your server, kill it, and
-	 * run it again on the same port but the call to bind() produces
-	 * an error.  The solution is to add this line of code or to wait
-	 * a couple of minutes before running the server again.  The
-	 * problem is that the server's socket gets stuck in the TIME_WAIT
-	 * state even though the server has been killed.  When the server
-	 * restarts, it is unable to acquire that socket again unless you
-	 * wait for a long enough time. */
+	   It eliminates a problem where you run your server, kill it, and
+	   run it again on the same port but the call to bind() produces
+	   an error. The solution is to add this line of code or to wait
+	   a couple of minutes before running the server again. The
+	   problem is that the server's socket gets stuck in the TIME_WAIT
+	   state even though the server has been killed. When the server
+	   restarts, it is unable to acquire that socket again unless you
+	   wait for a long enough time.
+
+	   If you comment out this code and want to see the socket reach
+	   the TIME_WAIT state, run your server and run "netstat -atnp |
+	   grep 8080" to see the server listening on the port. Next,
+	   connect to the server with a client and re-run the netstat
+	   command. You will see that the socket remains in the TIME_WAIT
+	   state for a while (a couple minutes).
+	*/
 	int yes = 1;
+#if 1
 	if(setsockopt(sock, SOL_SOCKET, SO_REUSEADDR, &yes, sizeof(int)) != 0)
 	{
 		perror("server: setsockopt() failed: ");
+		close(sock);
 		exit(EXIT_FAILURE);
 	}
+#endif
+
+
+#if 0
+	/* Keepalive periodically sends a packet after a connection has
+	 * been idle for a long time to ensure that our connection is
+	 * still OK. It typically is not needed and defaults to OFF.
+
+	 http://www.tldp.org/HOWTO/html_single/TCP-Keepalive-HOWTO/
+	 http://tools.ietf.org/html/rfc1122
+	*/
+	
+	/* Check the status for the keepalive option */
+	int optval;
+	socklen_t optlen=sizeof(int);
+	if(getsockopt(sock, SOL_SOCKET, SO_KEEPALIVE, &optval, &optlen) < 0) {
+		perror("getsockopt()");
+		close(sock);
+		exit(EXIT_FAILURE);
+	}
+	printf("SO_KEEPALIVE is %s\n", (optval ? "ON" : "OFF"));
+
+	/* Set the option active */
+	yes = 1;
+		if(setsockopt(sock, SOL_SOCKET, SO_KEEPALIVE, &yes, sizeof(int)) < 0) {
+			perror("setsockopt()");
+			close(sock);
+			exit(EXIT_FAILURE);
+		}
+	printf("SO_KEEPALIVE set on socket\n");
+#endif
+	
 }
 
 void example_bind(int sock, struct addrinfo *ai)
@@ -81,6 +123,7 @@ void example_bind(int sock, struct addrinfo *ai)
 	if(bind(sock, ai->ai_addr, ai->ai_addrlen) == -1)
 	{
 		perror("server: bind() failed: ");
+		close(sock);
 		exit(EXIT_FAILURE);
 	}
 }
@@ -91,6 +134,7 @@ void example_listen(int sock, int queueSize)
 	if(listen(sock, queueSize)==-1)
 	{
 		printf("server: listen() failed: ");
+		close(sock);
 		exit(EXIT_FAILURE);
 	}
 }
@@ -99,7 +143,8 @@ void example_listen(int sock, int queueSize)
 
 int main(void)
 {
-	char *port = "8080"; // can also be a name in /etc/services
+	// We can't listen on a port lower than 1024 unless we are root.
+	char *port = "8080"; // can also be a name in /etc/services.
 
 	// getaddrinfo(): network address and service translation:
 	struct addrinfo *socketaddrinfo = example_getaddrinfo(NULL, port);
@@ -131,11 +176,44 @@ int main(void)
 		         "HTTP/1.0 200 OK\r\n"
 		         "Content-Length: %zu\r\n"
 		         "Content-Type: text/html\r\n\r\n",
-		         strlen(http_body));
+		         strlen(http_body)); // should check return value
 
-		// Return value for send() might indicate an error (we're ignoring it!)
-		send(newsock, http_headers, strlen(http_headers), 0);
-		send(newsock, http_body, strlen(http_body), 0);
-		close(newsock);
+		if(send(newsock, http_headers, strlen(http_headers), 0) == -1)
+		{
+			perror("send");
+			close(newsock);
+			exit(EXIT_FAILURE);
+		}
+		if(send(newsock, http_body, strlen(http_body), 0) == -1)
+		{
+			perror("send");
+			close(newsock);
+			exit(EXIT_FAILURE);
+		}
+
+		/* shutdown() (see "man 2 shutdown") can be used before
+		   close(). It allows you to partially close a socket (i.e.,
+		   indicate that we are done sending data but still could
+		   receive). This could allow us to signal to a peer that we
+		   are done sending data while still allowing us to receive
+		   data. SHUT_RD will disallow reads from the socket, SHUT_WR
+		   will disallow writes, and SHUT_RDWR will disallow read and
+		   write. Also, unlike close(), shutdown() will affect all
+		   processes that are sharing the socket---while close() only
+		   affects the process that calls it. */
+#if 0
+		if(shutdown(newsock, SHUT_RDWR) == -1)
+		{
+			perror("shutdown");
+			close(newsock);
+			exit(EXIT_FAILURE);
+		}
+#endif
+
+		if(close(newsock) == -1)
+		{
+			perror("close");
+			exit(EXIT_FAILURE);
+		}
 	}
 }
