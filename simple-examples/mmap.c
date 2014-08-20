@@ -244,6 +244,8 @@ void mmapAnonShared()
 	for(unsigned int i=0; i<mmapLen; i++)
 		printf("ptr[%u] = %d\n", i, ptr[i]);
 
+	// We should check to see if fork() returns -1 to indicate an
+	// error occurred.
 	if(fork() == 0)
 	{
 		// The parent and child processes are now sharing the same piece of memory.

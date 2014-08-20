@@ -15,6 +15,12 @@ int main(void)
 	char buf[100];
 	fgets(buf, 100, stdin);
 	
+	/* We aren't checking the return value of fork(), but in the case
+	 * of a fork bomb run on a system where the number of processes
+	 * has been capped, it is possible that fork() would return -1 to
+	 * indicate an error and fail to actually fork. */
+	
 	while(1)
 		fork();
+
 }

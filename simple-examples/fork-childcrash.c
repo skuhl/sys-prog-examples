@@ -33,7 +33,7 @@ int main(void)
 		printf("Child is exiting. THIS SHOULDN'T GET PRINTED OUT!\n");
 		exit(EXIT_SUCCESS);    
 	}
-	else
+	else if(pid > 0)
 	{
 		printf("Waiting for child\n");
 		int status;
@@ -55,5 +55,10 @@ int main(void)
 			// wait"
 			printf("Other error.\n");
 
+	}
+	else // pid == -1
+	{
+		perror("fork"); // fork failed
+		exit(EXIT_FAILURE);
 	}
 }
