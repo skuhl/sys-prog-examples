@@ -24,3 +24,5 @@
 5) Try compiling and running with "-Wall -Wextra -g -D_FORTIFY_SOURCE=2 -O2". When you turn in your assignment, you may want to revert back to simply "-g", or "-Wall -g" or whatever is required by the instructor. In general, it is a good idea to at least include "-g" in case the grader wants to run your program with GDB or Valgrind.
 
 6) Compiling your code using the "clang" compiler and passing the -fsanitize=??? where ??? is "undefined", "integer" or "address". When you compile your program with these options, the compiler will insert additional checks into your code that may print errors/warnings when you run your program. For more details, see:   http://clang.llvm.org/docs/UsersManual.html#controlling-code-generation
+
+7) Compiling your code using the "clang" compiler and passing the --analyze parameter to enable the Clang Static Analyzer
