@@ -18,6 +18,9 @@ int main(void)
 	hints.ai_socktype = SOCK_STREAM;
 	hints.ai_flags = AI_PASSIVE; // if hostname==NULL and AI_PASSIVE flag is used, getaddrinfo() returns an addrinfo suitable for a server to use.
 
+	// Since node/hostname (first parameter) is NULL and the
+	// AI_PASSIVE flag is set, the following getaddrinfo() call
+	// creates a socket suitable for a server process to listen on.
 	int status = getaddrinfo(NULL, "2222", &hints, &res);
 	if (status != 0)
 	{
@@ -25,13 +28,11 @@ int main(void)
 		exit(EXIT_FAILURE);
 	}
 
-	printf("IP addresses for localhost:\n\n");
+	printf("IP addresses for a socket we are listening on:\n\n");
 
 	for(struct addrinfo *p = res; p != NULL; p = p->ai_next)
 	{
 		char *ipver = NULL;
-		// An alternative (easier?) way to get IP addresses into a
-		// string that we can print:
 		if(p->ai_family == AF_INET)
 			ipver = "IPv4";
 		else if(p->ai_family == AF_INET6)
