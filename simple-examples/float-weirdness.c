@@ -1,5 +1,4 @@
 // Scott Kuhl
-#define _GNU_SOURCE
 #include <stdio.h>
 #include <float.h> // for FLT_MIN
 #include <stdint.h>

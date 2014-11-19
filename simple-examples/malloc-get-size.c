@@ -4,7 +4,7 @@
 // pointer refers to without keeping track of it in your program. This
 // program demonstrates one way you can attempt to figure this out.
 // Also see: http://stackoverflow.com/questions/1281686/determine-size-of-dynamically-allocated-memory-in-c
-#define _GNU_SOURCE
+#define _GNU_SOURCE  // malloc_usable_size() is a GNU extension
 #include <stdio.h>
 #include <malloc.h>
 

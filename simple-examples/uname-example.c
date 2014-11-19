@@ -1,5 +1,9 @@
 // Scott Kuhl
+
 #define _GNU_SOURCE
+// uname requires _POSIX_C_SOURCE 200112L
+// The domainname variable in the utsname struct is a GNU extension
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -18,5 +22,5 @@ int main(void)
 	printf("release:    %s\n", buf.release);
 	printf("version:    %s\n", buf.version);
 	printf("machine:    %s\n", buf.machine);
-	printf("domainname: %s\n", buf.domainname);
+	printf("domainname: %s\n", buf.domainname); // GNU extension
 }
