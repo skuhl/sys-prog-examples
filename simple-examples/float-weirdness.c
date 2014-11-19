@@ -105,13 +105,12 @@ int main(void)
 	printf("%f + %f = %f\n", inf1, inf2, inf1+inf2);
 
 	printf("\n");
-	printf("a, b, and c should all be the same value (but might not be since floating-point math isn't associative)\n");
+	printf("a, b, and c \"should\" all be the same value (but might not be since floating-point math isn't associative)\n");
 	/* Floating-point math is not associative. For more information, see:
 	   http://stackoverflow.com/questions/6430448/
 	   The numbers for this example came from:
 	   http://cavern.uark.edu/~arnold/4363/FPArith_ex.pdf
 	*/
-	
 	float val1 =    0.003245678;
 	float val2 =  212.3454;
 	float val3 = -212.3456;
@@ -123,10 +122,24 @@ int main(void)
 	printf("c: %0.40f\n", c);
 
 	
+	printf("\n");
+	printf("Denormal/subnormal number example (c \"should\" equal a):\n");
+	// This example is based on:
+	// https://www.securecoding.cert.org/confluence/display/seccode/FLP05-C.+Don't+use+denormalized+numbers
+	a = .543f;
+	b = a * 7e-45;
+	c = b / 7e-45;
+	printf("a=%f\n", a); // prints 0.543000
+	printf("b=%f\n", b); // prints 0.000000
+	printf("c=%f\n", c); // prints 0.600556 (but you might expect 0.543)
+	printf("a %s normal\n", isnormal(a) ? "is" : "is not");
+	printf("b %s normal\n", isnormal(b) ? "is" : "is not");
+	printf("c %s normal\n", isnormal(c) ? "is" : "is not");
+	
+	
 // http://www.gnu.org/software/libc/manual/html_node/Infinity-and-NaN.html
 	// Floating point exception (SIGFPE) may occur when you do these calculations, but you can override that behavior.
 	// 1/0 = Infinity
 	// log (0) = -Infinity
 	// sqrt (-1) = NaN
-
 }
