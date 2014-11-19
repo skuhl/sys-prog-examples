@@ -6,7 +6,7 @@ EXEC=$(SOURCE:.c=)
 # (dl). We will compile all programs against the libraries---because
 # that is easier than writing a makefile that singles out only the
 # specific programs that use the libraries.
-LIBS=-lrt -lpthread -lreadline -ldl
+LIBS=-lrt -lpthread -lreadline -ldl -lm
 
 CFLAGS=-Wall -Wextra -std=c99 -D_FORTIFY_SOURCE=2
 DEBUG=-g

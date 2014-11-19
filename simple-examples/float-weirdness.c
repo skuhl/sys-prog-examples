@@ -39,10 +39,20 @@ int main(void)
 	printf("\n");
 
 	// There are lots of floats packed in around 0:
-	printf("The smallest float: %f\n", FLT_MIN);
-	printf("The smallest float (printed with more digits this time): %0.40f\n", FLT_MIN);
+	printf("The smallest normal float: %f\n", FLT_MIN);
+	printf("The smallest normal float (printed with more digits this time): %0.40f\n", FLT_MIN);
 	printf("\n");
 
+	// FLT_MIN is the smallest normal float, there are smaller
+	// subnormal (aka denormal) floats. For more information,
+	// see: http://en.wikipedia.org/wiki/Denormal_number
+	float subnormal = FLT_MIN/4.0;
+	printf("subnormal is: %0.40f\n", subnormal);
+	if(subnormal < FLT_MIN && subnormal > 0)
+		printf("subnormal is between 0 and FLT_MIN\n");
+	if(!isnormal(subnormal))
+		printf("isnormal() verified that subnormal variable is not a normal number\n");
+	printf("\n");
 
 	// There aren't many floats as you get further from 0
 	float big = 10000000000;
@@ -69,6 +79,7 @@ int main(void)
 	printf("NaN+1= %f\n", mynan+1);
 	printf("NaN+negative infinity= %f\n", mynan+myinf);
 
+	// Also see: isinf(), isfinite(), and fpclassify()
 	float inf1=INFINITY;
 	float inf2=INFINITY;
 	if(inf1 == inf2)
@@ -76,20 +87,30 @@ int main(void)
 	else
 		printf("Infinity != infinity\n");
 
+	// Also see: isnan(), and fpclassify()
 	float nan1 = NAN;
 	float nan2 = NAN;
 	if(nan1 == nan2)
 		printf("NaN == NaN\n");
 	else
 		printf("NaN != NaN\n");
-	
-	printf("a, b, and c should all be the same value (but might not be since floating-point math isn't associative)\n");
+
+	if(nan1 == 1.0f)
+		printf("NaN == 1.0f\n");
+	else
+		printf("NaN != 1.0f\n");
+
+	inf1=INFINITY;
+	inf2=-INFINITY;
+	printf("%f + %f = %f\n", inf1, inf2, inf1+inf2);
+
+	printf("\n");
+	printf("a, b, and c \"should\" all be the same value (but might not be since floating-point math isn't associative)\n");
 	/* Floating-point math is not associative. For more information, see:
 	   http://stackoverflow.com/questions/6430448/
 	   The numbers for this example came from:
 	   http://cavern.uark.edu/~arnold/4363/FPArith_ex.pdf
 	*/
-	
 	float val1 =    0.003245678;
 	float val2 =  212.3454;
 	float val3 = -212.3456;
@@ -101,10 +122,17 @@ int main(void)
 	printf("c: %0.40f\n", c);
 
 	
-// http://www.gnu.org/software/libc/manual/html_node/Infinity-and-NaN.html
-	// Floating point exception (SIGFPE) may occur when you do these calculations, but you can override that behavior.
-	// 1/0 = Infinity
-	// log (0) = -Infinity
-	// sqrt (-1) = NaN
-
+	printf("\n");
+	printf("Denormal/subnormal number example (c \"should\" equal a):\n");
+	// This example is based on:
+	// https://www.securecoding.cert.org/confluence/display/seccode/FLP05-C.+Don't+use+denormalized+numbers
+	a = .543f;
+	b = a * 7e-45;
+	c = b / 7e-45;
+	printf("a=%f\n", a); // prints 0.543000
+	printf("b=%f\n", b); // prints 0.000000
+	printf("c=%f\n", c); // prints 0.600556 (but you might expect 0.543)
+	printf("a %s normal\n", isnormal(a) ? "is" : "is not");
+	printf("b %s normal\n", isnormal(b) ? "is" : "is not");
+	printf("c %s normal\n", isnormal(c) ? "is" : "is not");
 }
