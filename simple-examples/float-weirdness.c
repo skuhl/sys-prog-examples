@@ -39,10 +39,20 @@ int main(void)
 	printf("\n");
 
 	// There are lots of floats packed in around 0:
-	printf("The smallest float: %f\n", FLT_MIN);
-	printf("The smallest float (printed with more digits this time): %0.40f\n", FLT_MIN);
+	printf("The smallest normal float: %f\n", FLT_MIN);
+	printf("The smallest normal float (printed with more digits this time): %0.40f\n", FLT_MIN);
 	printf("\n");
 
+	// FLT_MIN is the smallest normal float, there are smaller
+	// subnormal (aka denormal) floats. For more information,
+	// see: http://en.wikipedia.org/wiki/Denormal_number
+	float subnormal = FLT_MIN/4.0;
+	printf("subnormal is: %0.40f\n", subnormal);
+	if(subnormal < FLT_MIN && subnormal > 0)
+		printf("subnormal is between 0 and FLT_MIN\n");
+	if(!isnormal(subnormal))
+		printf("isnormal() verified that subnormal variable is not a normal number\n");
+	printf("\n");
 
 	// There aren't many floats as you get further from 0
 	float big = 10000000000;
@@ -69,6 +79,7 @@ int main(void)
 	printf("NaN+1= %f\n", mynan+1);
 	printf("NaN+negative infinity= %f\n", mynan+myinf);
 
+	// Also see: isinf(), isfinite(), and fpclassify()
 	float inf1=INFINITY;
 	float inf2=INFINITY;
 	if(inf1 == inf2)
@@ -76,13 +87,24 @@ int main(void)
 	else
 		printf("Infinity != infinity\n");
 
+	// Also see: isnan(), and fpclassify()
 	float nan1 = NAN;
 	float nan2 = NAN;
 	if(nan1 == nan2)
 		printf("NaN == NaN\n");
 	else
 		printf("NaN != NaN\n");
-	
+
+	if(nan1 == 1.0f)
+		printf("NaN == 1.0f\n");
+	else
+		printf("NaN != 1.0f\n");
+
+	inf1=INFINITY;
+	inf2=-INFINITY;
+	printf("%f + %f = %f\n", inf1, inf2, inf1+inf2);
+
+	printf("\n");
 	printf("a, b, and c should all be the same value (but might not be since floating-point math isn't associative)\n");
 	/* Floating-point math is not associative. For more information, see:
 	   http://stackoverflow.com/questions/6430448/
