@@ -135,11 +135,4 @@ int main(void)
 	printf("a %s normal\n", isnormal(a) ? "is" : "is not");
 	printf("b %s normal\n", isnormal(b) ? "is" : "is not");
 	printf("c %s normal\n", isnormal(c) ? "is" : "is not");
-	
-	
-// http://www.gnu.org/software/libc/manual/html_node/Infinity-and-NaN.html
-	// Floating point exception (SIGFPE) may occur when you do these calculations, but you can override that behavior.
-	// 1/0 = Infinity
-	// log (0) = -Infinity
-	// sqrt (-1) = NaN
 }
