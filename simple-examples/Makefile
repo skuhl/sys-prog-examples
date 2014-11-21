@@ -21,8 +21,7 @@ all: ${EXEC}
 ${EXEC}: $$(addsuffix .c, $$@) Makefile
 	${CC} ${CFLAGS} ${DEBUG} ${OPT} -o $@ $@.c ${LIBS}
 
-
-.PHONY: clean tar
+.PHONY: clean
 # a.out - some people might manually compile the program this way.
 # file.txt - some programs create this file.
 # gmon.out - created by programs compiled with -pg (see gprof-demo)
@@ -31,4 +30,3 @@ ${EXEC}: $$(addsuffix .c, $$@) Makefile
 # We delete .o files even though we don't create them. Some people manually compiling their programs may create them!
 clean:
 	rm -f a.out file.txt gmon.out *.temp ${EXEC} ${EXEC:=.o} core *~
-
