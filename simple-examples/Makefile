@@ -8,7 +8,10 @@ EXEC=$(SOURCE:.c=)
 # specific programs that use the libraries.
 LIBS=-lrt -lpthread -lreadline -ldl -lm
 
-CFLAGS=-Wall -Wextra -std=c99 -D_FORTIFY_SOURCE=2
+# -Wpedantic with -std=c99 will warn if programs use extensions that
+# aren't supported by C99. Using -std=c99 alone won't cause warnings
+# if you use some GNU extensions (such as nested functions).
+CFLAGS=-Wall -Wextra -Wpedantic -std=c99 -D_FORTIFY_SOURCE=2
 DEBUG=-g
 OPT=-O2
 
