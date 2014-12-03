@@ -7,6 +7,9 @@ int main(void)
        however. Since not all compilers support nested functions, they
        should be avoided unless you are completely certain that your
        code will only compiled with a compiler that supports them.
+
+       For more information, see:
+       https://gcc.gnu.org/onlinedocs/gcc/Nested-Functions.html
     */
 	void hello()
 	{
