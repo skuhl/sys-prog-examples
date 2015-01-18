@@ -1,9 +1,14 @@
+// Scott Kuhl
+
 /* The SIGTTIN signal is generated when a process tries to read from a
- * terminal but is running in the background. If you run this program
- * in the background with your shell, you will see the program receive
- * the SIGTTIN signal and then the program will call the default
- * SIGTTIN signal handler which will pause your program. When the
- * process is continued, it should read successfully from fgets(). */
+ * terminal but is running in the background. The program will be
+ * resumed (with a SIGCONT signal) once it is able to send read from
+ * the terminal successfully (i.e., it is placed in the foreground
+ * again).
+ *
+ * This program uses a signal handler so you can see that the SIGTTIN
+ * and SIGCONT signals get sent as expected.
+ */
 
 // Note that _GNU_SOURCE changes the behavior of signal(). See 'man signal' for more information.
 #define _GNU_SOURCE
@@ -15,8 +20,13 @@
 
 void sighandler(int signo)
 {
-	printf("Handler executed for signal %d\n", signo);
-
+	if(signo == SIGTTIN)
+		printf("Handler executed for signal %d (SIGTTIN)\n", signo);
+	else if(signo == SIGCONT)
+		printf("Handler executed for signal %d (SIGCONT)\n", signo);
+	else
+		printf("Handler executed for signal %d\n", signo);
+		
 	printf("Executing default signal handler for signal.\n");
 	signal(signo, SIG_DFL); // reset signal handler to default
 	raise(signo);
