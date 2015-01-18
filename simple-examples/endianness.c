@@ -111,5 +111,5 @@ int main(void)
 	// uint16_t ntohs(uint16_t netshort);
 
 	printf("\n");
-	printf("We created the file '%s'. You can safely delete it.");
+	printf("We created the file '%s'. You can safely delete it.", FILENAME);
 }
