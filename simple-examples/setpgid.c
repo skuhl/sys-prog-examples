@@ -31,8 +31,6 @@ void processInfo(char *msg)
 
 	printf("%s: This is %d in session %d (created from %d); pgid=%d\n",
 	       msg, getpid(), sid, getppid(), pgid);
-
-
 }
 
 
@@ -41,6 +39,8 @@ int main(void)
 	signal(SIGUSR1, sighandler);
 	processInfo("main");
 
+	// Start two child processes which sleep for 4 seconds and then
+	// exit.
 	int f = fork();
 	if(f < 0)
 		perror("fork error:");
@@ -63,15 +63,20 @@ int main(void)
 		exit(EXIT_SUCCESS);
 	}
 
+	/* Fork another process. */
 	f = fork();
 	if(f < 0)
 		perror("fork error:");
-	else if(f == 0) /* parent for two new children */
+	else if(f == 0) /* Create a new process (child3) that will also
+	                 * spawn off two children. */
 	{
-		if(setpgid(0, 0) == -1) // make this a new process group
+		if(setpgid(0, 0) == -1) // make child3 a new process group.
 			perror("setpgid error:");
 		processInfo("child3");
 
+		/* make child3 process spawn off two more children. These
+		 * children will be in the same progress group as child3 is
+		 * in */
 		f = fork();
 		if(f < 0)
 			perror("fork error:");
@@ -95,7 +100,10 @@ int main(void)
 		}
 		sleep(1);
 
-		kill(getpid(), SIGUSR1); // signal to only this process
+		/* Send a signal to child3 */
+//		kill(getpid(), SIGUSR1);
+
+		/* Send a signal to all processes in the child3 process group */
 //		kill(0, SIGUSR1); // signal to all processes in this process's group
 		wait(NULL);
 		wait(NULL);
