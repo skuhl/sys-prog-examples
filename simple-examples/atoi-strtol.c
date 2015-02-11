@@ -31,7 +31,7 @@ void print(char *buf)
 		perror("strtol overflow/underflow");
 	else if(errno == EINVAL)
 		perror("strtol base contains unsupported value");
-	else
+	else if(errno != 0)
 		perror("strtol other error");
 	if(endptr == buf)
 		fprintf(stderr, "strtol didn't find any digits\n");
