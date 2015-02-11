@@ -35,6 +35,8 @@ void print(char *buf)
 		perror("strtol other error");
 	if(endptr == buf)
 		fprintf(stderr, "strtol didn't find any digits\n");
+
+	printf("\n");
 }
 
 int main(void)
