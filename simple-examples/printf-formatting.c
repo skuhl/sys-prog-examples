@@ -36,11 +36,11 @@ int main(void)
 	printf("\n");
 
 	long long ll = -222; // a long is larger than an int
-	printf("long: %%lld=%lld\n", ll); // as a signed value
-	printf("long: %%llu=%llu\n", ll); // as an unsigned value
-	printf("long: %%llo=%llo\n", ll); // octal
-	printf("long: %%llx=%llx\n", ll); // hex(lowercase)
-	printf("long: %%llX=%llX\n", ll); // hex(uppercase)
+	printf("long long: %%lld=%lld\n", ll); // as a signed value
+	printf("long long: %%llu=%llu\n", ll); // as an unsigned value
+	printf("long long: %%llo=%llo\n", ll); // octal
+	printf("long long: %%llx=%llx\n", ll); // hex(lowercase)
+	printf("long long: %%llX=%llX\n", ll); // hex(uppercase)
 	printf("\n");
 	
 	char ch='Z';
