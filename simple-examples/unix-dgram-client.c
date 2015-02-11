@@ -26,16 +26,20 @@ int main(void)
 		exit(EXIT_FAILURE);
 	}
 
-	// Set up the address of the socket for our address.
+#if 0
+	// If we also wanted to receive datagrams, we would need to call
+	// bind().
 	local.sun_family = AF_UNIX;
 	strcpy(local.sun_path, SOCK_PATH_CLIENT);
 	unlink(local.sun_path);
+
 	int len = strlen(local.sun_path) + sizeof(local.sun_family);
 	if (bind(s, (struct sockaddr *)&local, len) == -1)
 	{
 		perror("bind");
 		exit(EXIT_FAILURE);
 	}
+#endif
 
 	// What address are we sending the packets to?
 	remote.sun_family = AF_UNIX;

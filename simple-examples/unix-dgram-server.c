@@ -15,7 +15,7 @@
 
 int main(void)
 {
-	struct sockaddr_un local, remote;
+	struct sockaddr_un remote;
 
 	/*
 	  A call to socket() with the proper arguments creates the Unix
@@ -47,6 +47,7 @@ int main(void)
 	  before bind() to remove the socket if it already exists. You
 	  will get an EINVAL error if the file is already there.
 	*/
+	struct sockaddr_un local;
 	local.sun_family = AF_UNIX;
 	strcpy(local.sun_path, SOCK_PATH_SERVER);
 	unlink(local.sun_path);
@@ -57,9 +58,14 @@ int main(void)
 		exit(EXIT_FAILURE);
 	}
 
+#if 0
+	// If we wanted to send packets back to the client, we would need
+	// this code.
+	
 	// What address are we sending the packets to?
 	remote.sun_family = AF_UNIX;
 	strcpy(remote.sun_path, SOCK_PATH_CLIENT);
+#endif
 
 	// Don't have to call listen() for a datagram connection.
 
