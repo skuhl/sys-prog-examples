@@ -28,12 +28,14 @@ void sighandler(int signo)
 		printf("Handler executed for signal %d\n", signo);
 		
 	printf("Executing default signal handler for signal.\n");
-	signal(signo, SIG_DFL); // reset signal handler to default	
-	kill(getpid(), signo);
+	signal(signo, SIG_DFL); // reset signal handler to default
+	raise(signo);
 }
 
 int main(void)
 {
+	/* See signal.c for detailed information describing a variety of
+	 * details you should be aware of regarding signals. */
 	signal(SIGTTIN, sighandler);
 	signal(SIGCONT, sighandler);
 	printf("Type something...\n");

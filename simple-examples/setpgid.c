@@ -100,22 +100,22 @@ int main(void)
 		}
 		sleep(1);
 
-		/* Send a signal to child3 */
-//		kill(getpid(), SIGUSR1);
+		/* Send a signal to child3; child3-1 and child3-2 will still survive. */
+		// kill(getpid(), SIGUSR1);
 
-		/* Send a signal to all processes in the child3 process group */
+		/* Send a signal to all processes in the child3 process group. This should kill child3, child3-1, child3-2. */
 //		kill(0, SIGUSR1); // signal to all processes in this process's group
-		wait(NULL);
-		wait(NULL);
+		wait(NULL); // wait for child3-1
+		wait(NULL); // wait for child3-2
 
 		printf("child3 exiting\n");
 		exit(EXIT_SUCCESS);
 	}
 
 	sleep(1);
-//	kill(0, SIGUSR1); // signal to all processes in this process's group
-	wait(NULL);
-	wait(NULL);
-	wait(NULL);
+//	kill(0, SIGUSR1); // signal to all processes in this process's group; should kill main, child1, child2
+	wait(NULL); // wait for child1
+	wait(NULL); // wait for child2
+	wait(NULL); // wait for child3
 	printf("main exiting\n");
 }

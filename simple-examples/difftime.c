@@ -20,5 +20,12 @@ int main(void)
 	time_t elapsedAlternate= t2-t1;
 	printf("%ld\n", elapsedAlternate);
 
+	// Measuring elapsed time in this way can be somewhat
+	// misleading. For example, a system administrator might change
+	// the time after t1 is recorded but before t2 is recorded.
+	//
+	// To more robustly measure the amount of time that has elapsed,
+	// look at clock_gettime.c
+	
 	return 0;
 }
