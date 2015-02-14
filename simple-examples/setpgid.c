@@ -101,7 +101,7 @@ int main(void)
 		sleep(1);
 
 		/* Send a signal to child3; child3-1 and child3-2 will still survive. */
-		kill(getpid(), SIGUSR1);
+		// kill(getpid(), SIGUSR1);
 
 		/* Send a signal to all processes in the child3 process group. This should kill child3, child3-1, child3-2. */
 //		kill(0, SIGUSR1); // signal to all processes in this process's group
