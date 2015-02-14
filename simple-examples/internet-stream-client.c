@@ -99,6 +99,9 @@ int main(void)
 	}
 	else if (s < (ssize_t)strlen(httpget))
 	{
+		// If you want to ensure that the entire message gets sent,
+		// you must loop and send the part of the message that didn't
+		// get sent the first time.
 		printf("Entire message did not get sent.");
 	}
 
@@ -108,6 +111,12 @@ int main(void)
 		char recvbuf[1024];
 		ssize_t recvdBytes = 0;
 
+		/* Read up to 1024 bytes from the socket. Even if we know that
+		   there are far more than 1024 bytes sent to us on this
+		   socket, recv() will only give us the bytes that the OS can
+		   provide us. If there are no bytes for us to read (and the
+		   connection is open and without error), recv() if there are
+		   no bytes to read. */
 		recvdBytes = recv(sock, recvbuf, 1024, 0);
 		if(recvdBytes > 0) // print bytes we received to console
 			fwrite(recvbuf, 1, recvdBytes, stdout);
