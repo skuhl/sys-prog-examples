@@ -178,12 +178,21 @@ int main(void)
 		         "Content-Type: text/html\r\n\r\n",
 		         strlen(http_body)); // should check return value
 
+
+		/* Note: send() does not guarantee that it will send all of
+		 * the data that we ask it too. To reliably send data, we
+		 * should inspect the return value from send() and then call
+		 * send() again on any bytes did not get sent. */
+		
+		// Send the HTTP headers
 		if(send(newsock, http_headers, strlen(http_headers), 0) == -1)
 		{
 			perror("send");
 			close(newsock);
 			exit(EXIT_FAILURE);
 		}
+
+		// Send the HTTP body
 		if(send(newsock, http_body, strlen(http_body), 0) == -1)
 		{
 			perror("send");
