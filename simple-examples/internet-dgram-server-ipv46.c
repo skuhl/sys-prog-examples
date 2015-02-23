@@ -62,15 +62,15 @@ int main(void)
 	for(p = servinfo; p != NULL; p = p->ai_next) {
 		if(p->ai_family != AF_INET6) // only use IPv6 addresses
 			continue;
-		if ((sockfd = socket(p->ai_family, p->ai_socktype,
-		                                p->ai_protocol)) == -1) {
+		sockfd = socket(p->ai_family, p->ai_socktype, p->ai_protocol);
+		if (sockfd == -1) {
 			perror("socket");
 			continue;
 		}
-		/* This turns V6_ONLY off (which is the default on Linux). We
-		 * are setting it to ensure that it is off because different
-		 * OS's may default to other values or an OS might have its
-		 * default setting modified. */
+		/* This turns V6ONLY off (even though it defaults to off on
+		 * Linux). We are setting it to ensure that it is off because
+		 * different OS's may default to other values or an OS might
+		 * have its default setting modified. */
 		int no = 0;     
 		if(setsockopt(sockfd, IPPROTO_IPV6, IPV6_V6ONLY, &no, sizeof(int)) == -1) {
 			close(sockfd);
@@ -83,7 +83,7 @@ int main(void)
 		}
 		// If we got here, we successfully bound socket to IPv6 (and,
 		// on Linux, this means we also are listening on IPv4 too as
-		// long as V6ONLY left to the default value of false).
+		// long as V6ONLY is false).
 		haveBound = 1;
 
 		break;
