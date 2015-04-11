@@ -1,0 +1,20 @@
+=== Using gprof ===
+To profile a C program, add "-pg" to your compiler options.
+
+Run your program and exit the program normally. It should create a gmon.out file.
+
+Run "grpof executable gmon.out | less" and view the output. Note that gprof estimates the time spent in *your* code. If your code calls a function in another library which uses a significant amount of time, this time is not factored into gprof. For more details, look for gprof tutorials and information online.
+
+
+=== Callgrind ===
+Run your program with "valgrind --tool=callgrind ./program arg1 arg2 ..."
+
+It should create a file named "callgrind.out.123" or similar.
+
+Run "callgrind_annotate --auto=yes callgrind.out.123 | less" to see how many instructions different function calls use. You can also run "callgrind_annotate --auto=yes callgrind.out.123 *.c | less" to see annotated output of how many instructions different lines of code were responsible for.
+
+Callgrind can also be set up to monitor cache hits/misses and provide a report. For more information, search for a tutorial online or refer to one of the following pages:
+
+http://valgrind.org/docs/manual/cl-manual.html
+http://web.stanford.edu/class/cs107/guide_callgrind.html
+
