@@ -17,4 +17,5 @@ http://shop.oreilly.com/product/9780596009588.do
 "The Linux Programming Interface: A Linux and UNIX System Programming Handbook", Michael Kerrisk
 http://books.google.com/books?id=2SAQAQAAQBAJ&lpg=PP1&pg=PP1#v=onepage&q&f=false
 
-
+Are pointers and arrays equivalent in C?
+http://eli.thegreenplace.net/2009/10/21/are-pointers-and-arrays-equivalent-in-c
