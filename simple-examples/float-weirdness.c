@@ -134,4 +134,12 @@ int main(void)
 	printf("a %s normal\n", isnormal(a) ? "is" : "is not");
 	printf("b %s normal\n", isnormal(b) ? "is" : "is not");
 	printf("c %s normal\n", isnormal(c) ? "is" : "is not");
+
+	/* The results of floating point math may depend on the
+	   optimization level. For more information, see:
+	   http://blog.jwhitham.org/2015/04/gcc-bug-323-journey-to-heart-of.html
+	   https://gcc.gnu.org/bugzilla/show_bug.cgi?id=323
+	   https://gcc.gnu.org/wiki/FAQ#PR323
+	*/
+	
 }
