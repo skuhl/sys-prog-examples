@@ -57,7 +57,7 @@ int main(void)
 	printf("Writing 4 bytes, 1 byte at a time\n");
 	fwrite(&fourBytes, 1, 4, fs); // fwrite() does not change the order of bytes.
 	fclose(fs);
-	printf("Note: If you are on a little-endian machine, this actually wrote: 0xefbeadde to the file! Run 'hexdump %s' or 'xxd %s' to convince yourself of that!\n", FILENAME, FILENAME);
+	printf("Note: If you are on a little-endian machine, this actually wrote: 0xefbeadde to the file! Run 'hexdump -C %s' or 'xxd %s' to convince yourself of that!\n", FILENAME, FILENAME);
 
 
 	// Read the bytes back out of the file without changing any ordering.
