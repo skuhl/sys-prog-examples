@@ -12,7 +12,7 @@
 
 int main(void)
 {
-	printf("Depending on how your machine is configured, the 'emergency' message below may get broadcast to all users on all terminals. You might not want to run this on a shared machine. Press Ctrl+C to exit, any other key to continue\n");
+	printf("Depending on how your machine is configured, this program might cause an 'emergency' message to be broadcast to users on all terminals. You might not want to run this on a machine where other logged in users might be alarmed by the message. Press Ctrl+C to exit, any other key to continue.\n");
 	char buf[100];
 	if(fgets(buf, 100, stdin) == NULL)
 	{
