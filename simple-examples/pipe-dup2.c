@@ -38,6 +38,7 @@ int main (void)
 		dup2(fd[READ_END], STDIN_FILENO);
 		// change every 's' into an 'X'
 		execlp("tr", "tr","s", "X",NULL);
+		// execlp() does not return (except when an error occurred
 	}
 	/* Only parent gets here. If parent doesn't close the WRITE_END of
 	 * the pipe, then child2 might not exit because the parent could
