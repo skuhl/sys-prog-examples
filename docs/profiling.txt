@@ -18,3 +18,11 @@ Callgrind can also be set up to monitor cache hits/misses and provide a report. 
 http://valgrind.org/docs/manual/cl-manual.html
 http://web.stanford.edu/class/cs107/guide_callgrind.html
 
+=== oprofile ===
+Run your program with "operf ./program arg1 arg2 ..."
+
+It should create a directory called "oprofile_data"
+
+Run "opreport --symbols" to see a profiling report.
+
+You can produce annotated source with "opannotate --source --output-dir=annotated" which will create annotated source inside of a folder named "annotated"
