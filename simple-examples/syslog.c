@@ -34,8 +34,8 @@ int main(void)
 	syslog(LOG_ERR, "This is a error condition. %s", disclaimer);
 	syslog(LOG_WARNING, "This is a warning condition. Everything is fine, this is a test. %s", disclaimer);
 	syslog(LOG_NOTICE, "This is a normal, but significant, condition. Everything is fine, this is a test. %s", disclaimer);
-	syslog(LOG_NOTICE, "This is an informational message. Everything is fine, this is a test. %s", disclaimer);
-	syslog(LOG_NOTICE, "This is a debugging message. Everything is fine, this is a test. %s", disclaimer);
+	syslog(LOG_INFO, "This is an informational message. Everything is fine, this is a test. %s", disclaimer);
+	syslog(LOG_DEBUG, "This is a debugging message. Everything is fine, this is a test. %s", disclaimer);
 
 	/* Close the log */
 	closelog();
