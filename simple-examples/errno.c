@@ -80,7 +80,7 @@ int main(void)
 		}
 	}
 
-	// errno starts the program set to 0 ("success"). Many functions
+	// errno is set to 0 ("success") when the program begins. Many functions
 	// will *not* set it to 0 if successful (although some
 	// might). For one description of the reasoning behind this, see:
 	// http://programmers.stackexchange.com/questions/209729/
