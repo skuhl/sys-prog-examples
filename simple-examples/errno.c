@@ -23,11 +23,10 @@
   - The errno itself is an integer.
 
   - There are preprocessor macros/variable names so you don't have to
-    remember the numbers (EACCESS, EEXIST, etc). The way the numbers
-    are assigned to these For a list of these, see "man 3 errno". It
-    is best to rely on these variable names instead of the integer
-    values themselves because different machines may use different
-    integers for the same error.
+    remember the numbers (EACCESS, EEXIST, etc). For a list of these,
+    see "man 3 errno". It is best to rely on these variable names 
+    instead of the integer values themselves because different machines
+    may use different integers for the same error.
 
   - The macro/variable names can also be mapped to a human readable
     message. These messages are also listed in "man 3 errno". These
@@ -81,7 +80,7 @@ int main(void)
 		}
 	}
 
-	// errno starts the program set to 0 ("success"). Many functions
+	// errno is set to 0 ("success") when the program begins. Many functions
 	// will *not* set it to 0 if successful (although some
 	// might). For one description of the reasoning behind this, see:
 	// http://programmers.stackexchange.com/questions/209729/
