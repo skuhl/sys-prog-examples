@@ -13,11 +13,11 @@
 
 === HAVE A WORKING PROGRAM? What other checks can I do before I turn in my programming assignment? ===
 
-1) Think about what tests the grader might use to test your program? What are all of the wrong ways that someone could run your program?
+1) Think about what tests the grader might use to test your program. What are all of the wrong ways that someone could run your program?
 
 2) Run your code through valgrind and cppcheck one last time. Even though your program is working well, you might be relying on undefined behavior.
 
-3) Try running your program on another computer (if you can). If you haven't tested it on the type of machine that the grader will be using (for example, a lab machine), do so.
+3) If you can, try running your program a computer with a different OS (even if they are both Linux machines). If you haven't tested it on the type of machine that the grader will be using (for example, a lab machine), do so.
 
 4) Try compiling your program with a different compiler (if you can). "clang" that works just like "gcc". Just change "gcc" in your makefile to "clang". Sometimes this can identify new problems that you didn't know about before and/or print different warnings. Unless you are told otherwise, you should expect that the grader will be using gcc for y our program.
 
