@@ -10,6 +10,12 @@ FILE *stderr
   stdio.h. Can be used with fopen, fprintf, etc
   
 STDIN_FILENO=0
-
+STDOUT_FILENO=1
+STDERR_FILENO=2
+  An int representing the stdin, stdout, and stderr file
+  descriptors. Can be used with open(), close(), etc.
 
 EXIT_SUCCESS
+EXIT_FAILURE
+  These variables can be passed as a parameter to exit() so you do not
+  have to remember if 0 means success or failure.
