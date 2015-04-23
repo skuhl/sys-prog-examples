@@ -1,4 +1,10 @@
-These programs are compiled using -std=c99 to compile ISO C programs. However, some examples use POSIX C features. To enable POSIX C features (and other features) in a program compiled with -std=c99, you can do "#define _GNU_SOURCE" at the top of your code. For a full description of what these variables mean, run "man feature_test_macros".
+These programs are compiled using -std=c99 to compile ISO C programs. However, some examples use POSIX C features. There are at least two ways to enable such features:
+
+ - You can enable POSIX C and other features by compiling with -std=c99 and then also including "#define _GNU_SOURCE" at the top of your code (or setting that variable with a parameter passed to gcc).
+
+- You can also use -std=gnu99 to enable additional features beyond C99.
+
+For a full description of what the preprocessor variables mean, run "man feature_test_macros".
 
 For table of functions and the standard that defines the function, see:
 http://www.schweikhardt.net/identifiers.html
