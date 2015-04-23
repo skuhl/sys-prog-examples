@@ -30,5 +30,7 @@ You can produce annotated source with "opannotate --source --output-dir=annotate
 
 === Other tips ===
 
+You can use "objdump -S file" to view the assembly for your program with the source code interweaved (assuming you compiled it with "-g". You can also run this command on .o files. However, the interweaved output is often confusing and difficult to understand if optimization is turned on (i.e., -O2, -O3, etc).
+
 Modern compilers are often smarter than you think. It is better to write readable code first and then consider what optimizations we can perform second. The following PDF summarizes some of the optimizations that modern compilers are capable of:
 http://www.fefe.de/source-code-optimization.pdf
