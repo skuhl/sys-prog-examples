@@ -16,6 +16,9 @@ void checkDivide(float denom)
 {
 	/* Note, simply checking if denom == 0 will not catch all of the
 	 * problems. */
+	if(denom == 0.0)
+		printf("denom = 0.0\n");
+	
 	float result = 1.0 / denom;
 	printf("1 / %11g = %11g  -->", denom, result);
 	if(isfinite(result))

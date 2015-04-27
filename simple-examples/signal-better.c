@@ -26,7 +26,7 @@ void sighandler(int signo)
 	 * async-signal-safe functions as described in "man 7 signal". The
 	 * manual clearly states: "If a signal interrupts the execution of
 	 * an unsafe function, and handler calls an unsafe function, then
-	 * the behavior of the program is undefined. */
+	 * the behavior of the program is undefined." */
 
 	/* Another important note: A signal can occur when another signal
 	 * is still being processed! */
