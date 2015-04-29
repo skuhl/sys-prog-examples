@@ -30,7 +30,11 @@ int main(void)
 	printf("day of week  %d\n", tstruct->tm_wday);
 	printf("day of year  %d\n", tstruct->tm_yday);
 	printf("is dst       %d\n", tstruct->tm_isdst);
-	printf("%s\n", asctime(tstruct));
+	printf("%s", asctime(tstruct)); // obsolete
+	char buf[1024];
+	strftime(buf, 1024, "%a %b %d %H:%M:%S %Y", tstruct);
+	printf("%s\n", buf);
+
 	// free(tstruct); // WRONG!
 	time_t converted = mktime(tstruct);
 
