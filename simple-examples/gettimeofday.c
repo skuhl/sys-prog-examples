@@ -58,9 +58,11 @@ int main(void)
     // with subsequent calls to localtime(). Use localtime_r() if you
     // want different behavior.
 	
-	char buf1[1024];
+	char buf1[1024]; // construct a string without microseconds
 	strftime(buf1, 1024, "%Y-%m-%d %H:%M:%S", nowtm);
-	char buf2[1024];
+	
+	char buf2[1024]; // append microseconds to end of string
 	snprintf(buf2, 1024, "%s.%06ld", buf1, tv.tv_usec);
+
 	printf("%s\n", buf2);
 }
