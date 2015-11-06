@@ -12,13 +12,24 @@ int main(void)
 		int b;
 	} pair;
 
-	// There are several ways to create a new variable from a struct
+	// There are several ways to create a new variable from a struct.
 	pair x = {    1,    2 };
-	pair y = { .a=1, .b=2 };
+	pair y = { .a=1, .b=2 };  // Uses "designated initializer" feature (C99)
 	pair z;
 	z.a = 1; // dot allows you to access an element in a struct
 	z.b = 2;
 
+	// Once you have initialized a struct, you can't initialize it again:
+	// x = { 4, 5 };        // ERROR
+	// x = { .a=1, .b=2 };  // ERROR
+
+	// "Compound literals" does make it possible to "initialize"
+	// again, however:
+	x = (pair) { 4, 5 };
+	x = (pair) { .a=1, .b=2 };
+	// Note: Unlike "string literals" which you can't modify, you
+	// *can* subsequently modify compound literals. Confusing!
+	
 	pair *m = malloc(sizeof(pair));
 	// -> arrow allows you to access an element from a pointer to a struct.
 	m->a = 10; 
