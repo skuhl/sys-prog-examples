@@ -19,3 +19,7 @@ http://books.google.com/books?id=2SAQAQAAQBAJ&lpg=PP1&pg=PP1#v=onepage&q&f=false
 
 Are pointers and arrays equivalent in C?
 http://eli.thegreenplace.net/2009/10/21/are-pointers-and-arrays-equivalent-in-c
+
+Files are Hard
+http://danluu.com/file-consistency/
+
