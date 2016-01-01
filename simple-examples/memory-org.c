@@ -12,7 +12,6 @@
 #include <fcntl.h>
 #include <sys/mman.h>
 #include <sys/wait.h>
-#include <malloc.h>
 #include <stdint.h>
 #include <dlfcn.h>
 int globalVar = 10;
