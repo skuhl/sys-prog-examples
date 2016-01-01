@@ -22,5 +22,9 @@ int main(void)
 	printf("release:    %s\n", buf.release);
 	printf("version:    %s\n", buf.version);
 	printf("machine:    %s\n", buf.machine);
+
+#ifdef __linux__
+	// Works on Linux, not mac
 	printf("domainname: %s\n", buf.domainname); // GNU extension
+#endif
 }
