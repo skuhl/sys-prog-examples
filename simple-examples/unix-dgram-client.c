@@ -16,7 +16,6 @@
 int main(void)
 {
 	struct sockaddr_un remote;
-	struct sockaddr_un local;
 
 	// Create a socket - the only information is the type of socket we
 	// want to create, not the address we want to connect to.
@@ -29,6 +28,7 @@ int main(void)
 #if 0
 	// If we also wanted to receive datagrams, we would need to call
 	// bind().
+	struct sockaddr_un local;
 	local.sun_family = AF_UNIX;
 	strcpy(local.sun_path, SOCK_PATH_CLIENT);
 	unlink(local.sun_path);
