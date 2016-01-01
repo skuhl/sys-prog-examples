@@ -4,6 +4,17 @@
 // pointer refers to without keeping track of it in your program. This
 // program demonstrates one way you can attempt to figure this out.
 // Also see: http://stackoverflow.com/questions/1281686/determine-size-of-dynamically-allocated-memory-in-c
+
+#ifndef __linux__
+#include <stdio.h>
+int main()
+{
+	printf("This example only works on Linux.\n");
+	return 0;
+}
+#else
+
+
 #define _GNU_SOURCE  // malloc_usable_size() is a GNU extension
 #include <stdio.h>
 #include <malloc.h>
@@ -33,3 +44,5 @@ int main(void)
 	printf("Usable size: %zu\n", usableSize);
 
 }
+
+#endif
