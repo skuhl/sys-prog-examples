@@ -1,5 +1,7 @@
 // Scott Kuhl
 
+/* This example demonstrates how to block signals using sigprocmask() */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <signal.h>
@@ -31,11 +33,11 @@ void printSignalSet(sigset_t *set)
 		}
 		else if(ret == 1)
 		{
-			printf("Signal %s=%d IS masked.\n", sigNames[i], sigList[i]);
+			printf("Signal %s=%d IS in the set.\n", sigNames[i], sigList[i]);
 		}
 		else
 		{
-			printf("Signal %s=%d is not masked.\n", sigNames[i], sigList[i]);
+			printf("Signal %s=%d is not in the set.\n", sigNames[i], sigList[i]);
 		}
 	}
 }
@@ -75,7 +77,11 @@ int main()
 
 
 #if 1
-	sigaddset(&set, SIGINT); // Add SIGINT to our set
+	if(sigaddset(&set, SIGINT) != 0) // Add SIGINT to our set
+	{
+		perror("sigaddset:");
+		exit(EXIT_FAILURE);
+	}
 	/* Tell OS that we want to mask our new set of signals---which now includes SIGINT. */
 	if(sigprocmask(SIG_SETMASK, &set, NULL) != 0)
 	{
@@ -89,18 +95,30 @@ int main()
 #endif
 
 
-
 	int secToSleep = 20;
 	printf("Try Ctrl+C. Try killing this program with 'kill -kill %d'. Going to sleep for %d seconds.\n", getpid(), secToSleep);
 	sleep(secToSleep);
 	printf("Sleep returned.\n");
+
+
+	/* Look for any signals that are currently blocked---and would be
+	 * triggered once they are unmasked. */
+	sigset_t pendingSignalSet;
+	sigpending(&pendingSignalSet);
+	printf("--- Signals which are blocked/pending: ---\n");	
+	printSignalSet(&pendingSignalSet);
+
 
 	
 	/* If SIGINT was blocked and the user pressed Ctrl+C during the
 	 * sleep above, that SIGINT signal is just blocked. By unmasking
 	 * that signal, the blocked SIGINT will be delivered. */
 	printf("Removing all signals from mask.\n");
-	sigemptyset(&set);
+	if(sigemptyset(&set) != 0)
+	{
+		perror("sigemptyset:");
+		exit(EXIT_FAILURE);
+	}
 	if(sigprocmask(SIG_SETMASK, &set, NULL) != 0)
 	{
 		perror("sigprocmask:");
