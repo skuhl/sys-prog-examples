@@ -25,14 +25,39 @@ void sighandler(int signo)
 
 int main(void)
 {
-	struct sigaction act;
+	printf("This is pid %d\n", getpid());
+
+	/* sigaction is a struct describing a signal handler. It contains:
+	   - A signal handler function
+	   
+	   - A signal mask which specifies which signals should be blocked
+         while the signal handler function is running. If the signal
+         handler returns normally, the original signal mask will be
+         restored. To understand signal masks, see sigprocmask.c
+	   
+	   - A set of flags.
+	*/
+	strict sigaction act;
+	
+	/* Specify the signal handler function to be called when one of
+	 * the specified signals occur. */
 	act.sa_handler = &sighandler;
-	act.sa_flags = 0;
-	if(sigemptyset(&act.sa_mask) != 0)
-	{
-		printf("sigemptyset error\n");
-		exit(EXIT_FAILURE);
-	}
+
+	/* Add all of the signals to the signal mask set. This means that
+	   all signals will be blocked (i.e., delayed) while our signal
+	   handler function is running. The original signal mask will be
+	   restored when our signal handler exits normally. */
+	sigfillset(&sa.sa_mask);
+	
+	/* If the signal handler gets run in the middle of some function
+	 * calls (such as open(), read(), or write()) and the signal
+	 * handler returns normally, there are couple of options: return a
+	 * failure code EINTR from those functions, or try to resume the
+	 * function. With SA_RESTART, the function is resumed instead of
+	 * returning an error. */
+	act.sa_flags = SA_RESTART;
+	
+	/* Add our signal handler to SIGINT (i.e., Ctrl+C) */
 	if(sigaction(SIGINT, &act, NULL) == -1)
 	{
 		perror("sigaction");
@@ -49,5 +74,4 @@ int main(void)
 			printf("SIGINT signal occurred.\n");
 		}
 	}
-
 }
