@@ -10,14 +10,15 @@ int main(void)
 	// Maximum value for an unsigned char is 255
 	unsigned char hundred = 100;
 
-	// hundred * hundred is promoted to an int, stored in a char.
+	// In the line below, hundred * hundred is promoted to an int,
+	// stored in an unsigned char.
 	//
 	// In the same way that you can do "int x = 123.3" without a cast
-	// and get no warning, the same happens below. The multiplication
-	// is promoted to an int and then assigned to an unsigned char.
+	// and get no warning, the same happens below.
 	//
-	// TIP: Add the -Wconversion flag to catch cases where things are
-	// being implicitly cast in a way that may alter the value.
+	// TIP: Add the -Wconversion compiler flag to catch cases where
+	// things are being implicitly cast in a way that may alter the
+	// value.
 	unsigned char product = hundred * hundred;
 	
 	// But multiplying two unsigned chars together results in an int.
@@ -26,5 +27,6 @@ int main(void)
 
 	/* NOTE: The promotion even occurs on things that you might not
 	 * normally expect it. For example, when you do a bitshift, or a
-	 * bitwise not. */
+	 * bitwise not. The promotion happens prior to the bitshift
+	 * operator being applied. */
 }
