@@ -22,5 +22,25 @@ int main(int argc, char *argv[])
 	printf("Number of arguments passed to this program: %d (including the program executable itself!)\n", argc);
 	for(int i=0; i<argc; i++)
 		printf("argv[%d]=%s\n", i, argv[i]);
+
+	// Try this: Can you use quotes to make one of the arguments be an
+	// empty string?
+
+	
+#if 0
+	// Section 5.1.2.2.1 in C99 and C11 specify that argv[argc] must
+	// contain NULL. In addition argv[0] through argv[argc-1] will
+	// contain pointers to strings. Therefore, we could iterate on
+	// argv until we reach NULL instead of using a for loop. For
+	// example:
+
+	int i=0; 
+	while(argv[i] != NULL)
+	{
+		printf("argv[%d]=%s\n", i, argv[i]);
+		i++;
+	}
+#endif
+
 	return EXIT_SUCCESS;
 }
