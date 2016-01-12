@@ -15,9 +15,11 @@ int main(void)
 	printf("sizeof(i):     %zu\n", sizeof(i));
 	printf("sizeof(int):   %zu\n", sizeof(int));
 
-	// sizeof() on an array returns the size of the array.
+	// sizeof() on an array returns the size of the array in bytes.
 	char array[42];
-	printf("sizeof(array): %zu\n", sizeof(array));
+	printf("sizeof(array of 42 chars): %zu\n", sizeof(array));
+	int arrayInt[10];
+	printf("sizeof(array of 10 ints) : %zu\n", sizeof(arrayInt));
 
 	// sizeof() behaves differently with pointers and arrays. When
 	// sizeof() is called on a pointer, it returns the size of the
@@ -52,7 +54,7 @@ int main(void)
 	printf("sizeof(size_t):  %zu\n", sizeof(size_t));
 	// ssize_t is guaranteed to store up to SSIZE_MAX, used to count bytes.
 	printf("sizeof(ssize_t): %zu\n", sizeof(ssize_t));
-	printf("sizeof(off_t): %zu\n", sizeof(off_t));
+	printf("sizeof(off_t):   %zu\n", sizeof(off_t));
 	printf("sizeof(time_t):  %zu\n", sizeof(time_t));
 
 	printf("\n");
