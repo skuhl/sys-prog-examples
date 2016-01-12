@@ -44,9 +44,29 @@ int main(void)
 	// You can shift and assign at the same time:
 	unsigned char tmp = 0xFF;
 	tmp <<= 1;    // stores 0xFE in tmp
+
+
+	// WARNING: Shifting by a negative amount is often allowed, but is
+	// not defined by the C standard. Therefore, you should not do it!
+	tmp = tmp << -1;
+
+	// Effectively the same as above, but might not produce a compiler
+	// warning. Regardless of if there is a warning, bitshifting by a negative number is undefined.
+	// https://www.securecoding.cert.org/confluence/display/c/INT34-C.+Do+not+shift+an+expression+by+a+negative+number+of+bits+or+by+greater+than+or+equal+to+the+number+of+bits+that+exist+in+the+operand
+	int outsmartCompiler = -1;
+	tmp = tmp << outsmartCompiler;
+
+
+	// WARNING: Shifting by an amount that is equal to or larger than
+	// the precision of the type is undefined.
+	int intA = 123;
+	intA = intA << 32; // undefined because int is 32 bits
+	tmp = tmp << 8;    // OK! because tmp is promoted to an int before the bitshift occurs. Then, it is converted back into a char.
 	
 
+	// WARNING: Bitwise operators do not work on floats or doubles.
 
+	
 	/* Bitshifts on signed integers may behave differently depending
 	   on implementation. For example, when the variable type is
 	   signed and when the most significant bit is 1. In this case,
