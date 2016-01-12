@@ -1,7 +1,9 @@
 // Scott Kuhl
 //
 // For more information, see:
+// http://stackoverflow.com/questions/13319492/understanding-the-difference-between-f-and-fvoid-in-c-and-c-once-and-for-a
 // http://stackoverflow.com/questions/12225171/difference-between-int-main-and-int-mainvoid
+// 
 
 #include <stdio.h>
 
@@ -9,7 +11,7 @@
  * receive different messages from the compiler when you try to call
  * them with a parameter! */
 
-void func1()
+void func1() // AVOID
 {
 	printf("func1()\n");
 }
