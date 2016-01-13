@@ -1,12 +1,20 @@
 SOURCE=$(wildcard *.c)
 HEADER=$(wildcard *.h)
 EXEC=$(SOURCE:.c=)
+UNAME=$(shell uname)
 
 # Some of the programs use pthreads, readline and dynamic linking
 # (dl). We will compile all programs against the libraries---because
 # that is easier than writing a makefile that singles out only the
 # specific programs that use the libraries.
+#
+# Some older versions of glibc require linking with -lrt to use
+# clock_gettime()
+ifeq ($(UNAME), Darwin)
+LIBS=-lpthread -lreadline -ldl -lm
+else
 LIBS=-lrt -lpthread -lreadline -ldl -lm
+endif
 
 # -Wpedantic with -std=c99 will warn if programs use extensions that
 # aren't supported by C99. Using -std=c99 alone won't cause warnings
