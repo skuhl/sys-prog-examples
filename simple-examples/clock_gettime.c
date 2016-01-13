@@ -12,6 +12,7 @@
 
 int main(void)
 {
+#ifdef __linux__
 	struct timespec t1, t2;
 	clock_gettime(CLOCK_MONOTONIC, &t1);
 	sleep(5);
@@ -31,6 +32,9 @@ int main(void)
 
 	double secondsElapsed = diff.tv_sec + diff.tv_nsec / 1000000000.0;
 	printf("Time elapsed (in seconds): %f\n", secondsElapsed);
-
+#else
+	printf("clock_gettime() works only on Linux\n");
+#endif
+	
 	return 0;
 }
