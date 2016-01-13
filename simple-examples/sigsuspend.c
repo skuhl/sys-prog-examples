@@ -2,6 +2,7 @@
 
 /* Illustrates how to use sigsuspend() */
 
+#define _GNU_SOURCE // necessary on Linux
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>

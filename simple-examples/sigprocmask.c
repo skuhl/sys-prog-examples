@@ -2,6 +2,7 @@
 
 /* This example demonstrates how to block signals using sigprocmask() */
 
+#define _GNU_SOURCE // necessary on Linux
 #include <stdio.h>
 #include <stdlib.h>
 #include <signal.h>
