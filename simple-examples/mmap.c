@@ -24,7 +24,11 @@ void printFile()
 {
 	FILE *fp = fopen(FILENAME, "r");
 	char buf[100];
-	fgets(buf, 100, fp);
+	if(fgets(buf, 100, fp) == NULL)
+	{
+		fprintf(stderr, "fgets() error\n");
+		exit(EXIT_FAILURE);
+	}
 	printf("file actually contains contains: %s\n", buf);
 	fclose(fp);
 }
@@ -251,11 +255,11 @@ void mmapAnonShared()
 		// The parent and child processes are now sharing the same piece of memory.
 		for(unsigned int i=0; i<mmapLen; i++)
 			printf("child: ptr[%u] = %d\n", i, ptr[i]);
-		printf("Child is putting non-zero data at the beginning of the mma'd area\n");
+		printf("Child is putting non-zero data at the beginning of the mmap'd area\n");
 		ptr[0] = 42; // indicate to parent that we printed stuff out.
 
 		printf("Child is waiting for non-zero data at the end of the mmap'd area...\n");
-		while(ptr[mmapLen-1] == 0); // wait for parent to change values
+		while(ptr[mmapLen-1] == 0) { sleep(1); }; // wait for parent to change values
 		printf("Child is done waiting.\n");
 		for(unsigned int i=0; i<mmapLen; i++)
 			printf("child ptr[%u] = %d\n", i, ptr[i]);
@@ -263,8 +267,12 @@ void mmapAnonShared()
 		exit(EXIT_SUCCESS);
 	}
 
+	/* NOTE: In this example, we are setting values in the shared
+	 * memory to "communicate" between processes. However, it would be
+	 * better to use a proper mutex.*/
+	
 	printf("Parent is waiting for non-zero data in the beginning of the mmap'd area.\n");
-	while(ptr[0] == 0); // wait for child to print out stuff.
+	while(ptr[0] != 42) { sleep(1); };
 	printf("Parent is done waiting, writing data into entire mmap'd area...\n");
 	for(unsigned int i=0; i<mmapLen; i++)
 		ptr[i] = i;
