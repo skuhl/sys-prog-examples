@@ -43,7 +43,7 @@ void printSignalSet(sigset_t *set)
 }
 
 
-int main()
+int main(void)
 {
 	/* Each process inherits its parents signal mask. The signal mask
 	 * specifies which set of signals are currently blocked. Signals

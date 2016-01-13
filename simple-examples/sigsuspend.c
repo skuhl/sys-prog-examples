@@ -8,7 +8,7 @@
 #include <signal.h>
 #include <errno.h>
 
-int main()
+int main(void)
 {
 	printf("Pausing until we receive a SIGINT signal (Ctrl+C).\n");
 	printf("This process has pid %d\n", getpid());
@@ -17,7 +17,7 @@ int main()
 	sigfillset(&set);
 	sigdelset(&set, SIGINT);
 
-	/* sigsuspend() will set the mask to the set temporarily. If a
+	/* sigsuspend() will set the signal mask to the set temporarily. If a
 	   signal is received:
 
 	   - If that signal would result in process termination, the

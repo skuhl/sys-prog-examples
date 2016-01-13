@@ -7,7 +7,7 @@
 
 #ifndef __linux__
 #include <stdio.h>
-int main()
+int main(void)
 {
 	printf("This example only works on Linux.\n");
 	return 0;

@@ -14,7 +14,7 @@ void sighandler(int signo)
 	printf("In signal handler.\n");
 }
 
-int main()
+int main(void)
 {
 	printf("Pausing until we receive a signal.\n");
 	printf("This process has pid %d\n", getpid());
