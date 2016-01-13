@@ -15,7 +15,14 @@ CFLAGS=-Wall -Wextra -Wpedantic -std=c99 -D_FORTIFY_SOURCE=2
 DEBUG=-g
 OPT=-O2
 
+# OSX users: /usr/bin/gcc on OSX actually uses the LLVM backend.  You
+# could install gcc via homebrew and change the CC variable below to
+# gcc-5.
+#
+# If you have clang installed, try changing gcc to clang.
 CC=gcc
+
+
 CPPCHECK=/usr/bin/cppcheck
 
 all: ${EXEC}
@@ -33,3 +40,6 @@ ${EXEC}: $$(addsuffix .c, $$@) Makefile
 # We delete .o files even though we don't create them. Some people manually compiling their programs may create them!
 clean:
 	rm -f a.out file.txt gmon.out *.temp ${EXEC} ${EXEC:=.o} core *~
+
+# Directories created on OSX:
+	rm -rf ${EXEC:=.dSYM}
