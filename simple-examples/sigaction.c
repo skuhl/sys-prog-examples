@@ -37,7 +37,7 @@ int main(void)
 	   
 	   - A set of flags.
 	*/
-	strict sigaction act;
+	struct sigaction act;
 	
 	/* Specify the signal handler function to be called when one of
 	 * the specified signals occur. */
@@ -47,7 +47,7 @@ int main(void)
 	   all signals will be blocked (i.e., delayed) while our signal
 	   handler function is running. The original signal mask will be
 	   restored when our signal handler exits normally. */
-	sigfillset(&sa.sa_mask);
+	sigfillset(&act.sa_mask);
 	
 	/* If the signal handler gets run in the middle of some function
 	 * calls (such as open(), read(), or write()) and the signal
