@@ -34,7 +34,7 @@ void *get_in_addr(struct sockaddr *sa)
 
 int main(void)
 {
-	int sockfd4, sockfd6;
+	int sockfd4=-1, sockfd6=-1;
 	struct addrinfo hints, *servinfo, *p;
 	int rv;
 	int numbytes;
