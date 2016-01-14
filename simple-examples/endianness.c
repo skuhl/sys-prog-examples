@@ -131,5 +131,5 @@ int main(void)
  	// uint64_t le64toh(uint64_t little_endian_64bits);
 	
 	printf("\n");
-	printf("We created the file '%s'. You can safely delete it.", FILENAME);
+	printf("We created the file '%s'. You can safely delete it.\n", FILENAME);
 }
