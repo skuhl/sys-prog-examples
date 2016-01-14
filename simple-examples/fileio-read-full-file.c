@@ -107,6 +107,10 @@ int main(void)
 	char *bytes = readfile("Makefile", &size);
 	if(bytes)
 	{
+		// printf("%s", bytes) would print bytes until a null
+		// byte---and would require that the bytes array be null
+		// terminated. We use fwrite() which will write all bytes out
+		// to the terminal no matter what they are.
 		fwrite(bytes, 1, size, stdout);
 		free(bytes);
 	}
