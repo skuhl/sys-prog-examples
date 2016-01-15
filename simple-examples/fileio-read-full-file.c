@@ -12,12 +12,12 @@
 
 char *readfile(char *filename, size_t *filesize)
 {
-	*filesize = 0; // If we return before reading file, set filesize to 0.
-
 	// Check if inputs are OK
 	if(filename == NULL || filesize == NULL)
 		return NULL;
-
+	
+	*filesize = 0; // If we return before reading file, set filesize to 0.
+	
 	// Try to open the file
 	int fd = open(filename, O_RDONLY);
 	if(fd == -1)
