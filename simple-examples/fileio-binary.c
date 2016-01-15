@@ -20,6 +20,7 @@ void readWriteInts(void)
 	FILE *fp = fopen(FILENAME, "w+");
 	if(fp == NULL) { perror("fopen"); exit(EXIT_FAILURE); };
 	int i = (int) getpid();
+	// It may be wise to check the return value of fwrite() and fread()!
 	fwrite(&i, sizeof(int), 1, fp);
 	printf("Wrote %d to file\n", i);
 	fclose(fp);
@@ -47,6 +48,8 @@ void readWriteBytes(void)
 	if(fp == NULL) { perror("fopen"); exit(EXIT_FAILURE); };
 	for(int i=0; i<5; i++)
 	{
+		// It may be wise to check the return value of fwrite() and
+		// fread()
 		fwrite(&bytes[i], 1, 1, fp);
 		printf("Wrote '%d' to file which is character '%c' and hex 0x%x\n", bytes[i], bytes[i], bytes[i]);
 	}
