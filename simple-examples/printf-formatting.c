@@ -29,7 +29,7 @@ int main(void)
 
 	long l = -111; // a long is larger than an int
 	printf("long: %%ld=%ld\n", l); // as a signed value
-	printf("long: %%lu=%lu\n", l); // as an unsigned value
+	printf("long: %%lu=%lu\n", (unsigned long) l); // as an unsigned value
 	printf("long: %%lo=%lo\n", l); // octal
 	printf("long: %%lx=%lx\n", l); // hex(lowercase)
 	printf("long: %%lX=%lX\n", l); // hex(uppercase)
@@ -37,7 +37,7 @@ int main(void)
 
 	long long ll = -222; // a long is larger than an int
 	printf("long long: %%lld=%lld\n", ll); // as a signed value
-	printf("long long: %%llu=%llu\n", ll); // as an unsigned value
+	printf("long long: %%llu=%llu\n", (unsigned long long) ll); // as an unsigned value
 	printf("long long: %%llo=%llo\n", ll); // octal
 	printf("long long: %%llx=%llx\n", ll); // hex(lowercase)
 	printf("long long: %%llX=%llX\n", ll); // hex(uppercase)
