@@ -21,11 +21,21 @@
      convention is not universally obeyed, but it is a good idea to
      follow it in your programs."
      - https://www.gnu.org/software/libc/manual/html_node/Exit-Status.html
-   
-   Note: You can also set the exit status by calling exit() and using
+
+*/
+
+
+/* Some other practical tips applicable to most programs:
+
+   You can also set the exit status by calling exit() and using
    the status code as the parameter.
- */
+
+   The variables EXIT_SUCCESS and EXIT_FAILURE are supposed to be set
+   to the exit status codes appropriate for your system. Most systems
+   have EXIT_SUCCESS=0 and EXIT_FAILURE=1
+*/
 #include <stdio.h>
+#include <stdlib.h>
 
 int main(int argc, char *argv[])
 {
@@ -38,7 +48,13 @@ int main(int argc, char *argv[])
 		return 1;
 	}
 
+	// The two most commonly used exit statuses:
+	printf("EXIT_SUCCESS is %d\n", EXIT_SUCCESS);
+	printf("EXIT_FAILURE is %d\n", EXIT_FAILURE);
+	
 	printf("Returning %d\n", exitStatus);
 	printf("If you are using a bash-like shell, try running 'echo $?' immediately after you run this program to see the actual return value.\n");
+
+	// exit program and use this exit status:
 	return exitStatus;
 }

@@ -23,7 +23,7 @@ int main(void)
 	if((unsigned char) (~b) != notB) printf("NOT B Fail!\n");
 
 	/* Why are the casts above necessary? C will cast integer types
-	 * that are smaller than a char to an integer. Without the cast,
+	 * that are smaller than an int to an int. Without the cast,
 	 * some compilers will sometimes complain about comparison between
 	 * different types. See integer-promotion.c */
 
