@@ -46,6 +46,8 @@ int sum_end0(int values, ...)
 	printf("arg=%d <- found the zero!\n", thisNum);
 
 	printf("sum_end0(..., 0) is returning: %d\n\n", sum);
+
+	va_end(argList);
 	return sum;
 }
 
@@ -73,9 +75,8 @@ int sum_count(int args, ...)
 	}
 
 	printf("sum_count(count, ...) is returning: %d\n\n", sum);
+	va_end(argList);
 	return sum;
-	
-
 }
 
 
