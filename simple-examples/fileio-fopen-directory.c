@@ -12,9 +12,13 @@
 
 #define DIRNAME "fileio-fopen-directory.temp"
 
-void cleanup()
+void cleanup(void)
 {
-	rmdir(DIRNAME);
+	if(rmdir(DIRNAME) == -1) // remove directory
+	{
+		perror("rmdir");
+		exit(EXIT_FAILURE);
+	}
 }
 
 int isdir(char *path)
@@ -30,7 +34,11 @@ int isdir(char *path)
 
 int main(void)
 {
-	mkdir(DIRNAME, 0700);
+	if(mkdir(DIRNAME, 0700) == -1)
+	{
+		perror("mkdir");
+		exit(EXIT_FAILURE);
+	}
 
 	// Demonstrate how to test if a path is a directory:
 	if(isdir(DIRNAME))
