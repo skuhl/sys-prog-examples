@@ -38,7 +38,7 @@ int main(void)
 	// any blank bits are set to 0.
 	unsigned char allOn = 0xFF;
 	if( (unsigned char) (allOn << 1) != 0xFE ) printf("<< Fail!");
-	if( (unsigned char) (allOn >> 4) != 0x0F ) printf("<< Fail!");
+	if( (unsigned char) (allOn >> 4) != 0x0F ) printf(">> Fail!");
 
 
 	// You can shift and assign at the same time:
