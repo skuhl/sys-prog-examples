@@ -27,6 +27,11 @@ void readWriteInts(void)
 	
 	   See "man 3 fopen", the C99 specification, or the POSIX
 	   specification for more information.
+
+	   The following page also describes some of the differences
+	   between binary and non-binary streams according to the C
+	   standard:
+	   https://www.securecoding.cert.org/confluence/display/c/FIO14-C.+Understand+the+difference+between+text+mode+and+binary+mode+with+file+streams
 	*/
 	FILE *fp = fopen(FILENAME, "wb");
 	// Verify we opened the file
@@ -124,7 +129,7 @@ int main(void)
 	printf("\n\n");
 	readWriteBytes();
 	
-	unlink(FILENAME); // delete file
+	remove(FILENAME); // delete file
 	
 	return EXIT_SUCCESS;
 }
