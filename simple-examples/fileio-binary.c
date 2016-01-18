@@ -129,7 +129,11 @@ int main(void)
 	printf("\n\n");
 	readWriteBytes();
 	
-	remove(FILENAME); // delete file
+	if(remove(FILENAME) == -1) // delete file
+	{
+		perror("remove");
+		return EXIT_FAILURE;
+	}
 	
 	return EXIT_SUCCESS;
 }

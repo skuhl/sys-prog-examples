@@ -57,7 +57,7 @@ int main(void)
 	printf("length of string read by fgets() is %lu bytes. String is: %s\n", strlen(bytes), bytes);
 	fclose(fp);
 
-	// delete output file.
+	// delete output file (without error checking)
 	remove(FILENAME);
 
 	return EXIT_SUCCESS;
