@@ -27,5 +27,13 @@ int main(void)
 	q.a = 987654321;
 	printf("%f\n", q.f);
 
+	/* Another note: Using a union of a float and an int is different
+	   than simply casting a float to an int (and vice versa). For
+	   example, if you assign an int 5 to a float, the float would
+	   then contain 5.0. The integer 5 and the floating point number 5
+	   are stored differently. Therefore, the bits in the integer 5
+	   and the floating point number 5 are different from each other.
+	*/
+
 	return 0;
 }
