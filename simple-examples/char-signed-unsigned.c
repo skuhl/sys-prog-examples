@@ -7,6 +7,9 @@
   Unsigned
   Neither (in which case, your system will pick either signed or unsigned).
 
+  For more definitive information, start by looking at section
+  5.2.4.2.1 in the C99 standard.
+
   When you are treating characters as actual ASCII characters, the
   difference don't matter much. However, when you are using char's to
   store numbers, then it does start to matter!
