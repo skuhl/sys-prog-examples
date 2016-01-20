@@ -36,6 +36,13 @@ int main(void)
 
 	// Use << to shift bits to the left. After the bits are shifted,
 	// any blank bits are set to 0.
+	//
+	// Use >> to shift bits to the right. If you are shifting
+	// something that is an unsigned type, any blank bits are set to
+	// 0. If you are shifting something that is a signed type, any
+	// blank bits can be set to 0 or 1, depending on
+	// implementation. An example involving >> on a signed type is
+	// also included further down in this example.
 	unsigned char allOn = 0xFF;
 	if( (unsigned char) (allOn << 1) != 0xFE ) printf("<< Fail!");
 	if( (unsigned char) (allOn >> 4) != 0x0F ) printf(">> Fail!");
@@ -64,7 +71,9 @@ int main(void)
 	tmp = tmp << 8;    // OK! because tmp is promoted to an int before the bitshift occurs. Then, it is converted back into a char.
 	
 
-	// WARNING: Bitwise operators do not work on floats or doubles.
+	// WARNING: Bitwise operators do not work on floats or
+	// doubles. Using a union between a float and uint32_t is one way
+	// to workaround this limitation.
 
 	
 	/* Bitshifts on signed integers may behave differently depending
