@@ -8,6 +8,11 @@
 
 int main(void)
 {
+	/* Not all numbers are exactly representable in a float: */
+	float notExact = -475.9;
+	printf("When we set a float to -475.9, we get %f\n", notExact);
+
+	
 	float tenth = .1; // a repeating number in binary
 	float sum = 0;
 	// small errors can accumulate over time.
