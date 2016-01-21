@@ -90,7 +90,7 @@ int main(void)
 	printf("maximum value for an unsigned short: %d\n", USHRT_MAX);
 	printf("minimum value for an int: %d\n", INT_MIN);
 	printf("maximum value for an int: %d\n", INT_MAX);
-	printf("maximum value for an unsigned int: %d\n", UINT_MAX );
+	printf("maximum value for an unsigned int: %u\n", UINT_MAX );
 	printf("minimum value for a long: %ld\n", LONG_MIN );
 	printf("maximum value for a long: %ld\n", LONG_MAX );
 	printf("maximum value for an unsigned long: %lu\n", ULONG_MAX);
