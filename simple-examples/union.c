@@ -35,5 +35,11 @@ int main(void)
 	   and the floating point number 5 are different from each other.
 	*/
 
+
+	/* Version of C prior to C99 may have different behavior than what
+	   is described in this file. For more information, see:
+	   http://stackoverflow.com/questions/11639947/
+	*/
+
 	return 0;
 }
