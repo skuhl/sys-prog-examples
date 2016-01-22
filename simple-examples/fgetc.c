@@ -44,6 +44,7 @@ int main(void)
 	do
 	{
 		c = fgetc(fp); // MISTAKE! fgetc() documentation says it returns an int!
+		// Using the -Wconversion compiler flag should catch this mistake.
 		printf("read byte: %c (decimal value is %d)\n", c, c);
 	} while(c != EOF);
 	if(feof(fp) == 0)
