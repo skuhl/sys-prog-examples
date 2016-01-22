@@ -12,7 +12,9 @@ int main(void)
 	printf("boolean is set to: %d\n", b);
 	b = !b;
 	printf("boolean is set to: %d\n", b);
-
+	b = 5;
+	printf("boolean is set to: %d\n", b);
+	
 	printf("bytes in a 'bool' type: %zu\n", sizeof(bool));
 	/* Why does a bool take up a byte?  The C standard just says that
 	   a bool is big enough to contain a 0 and a 1. The smallest
