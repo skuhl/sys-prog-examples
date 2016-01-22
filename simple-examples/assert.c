@@ -11,10 +11,10 @@
    extra performance out of your program, you might decide to disable
    them. Some production programs ship with assertions turned on! */
 
-int main ()
+int main(void)
 {
 	// Change the x variable to change the behavior of this program.
-	int x = 1;
+	int x = 10;
 	
 	// Any expressions inside of assert() should be true. If they are
 	// false, we will exit with an error message indicating the file
