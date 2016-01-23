@@ -4,7 +4,7 @@
  Intermixing reads and writes to FILE* streams is potentially
  problematic. Writes can be buffered and then subsequent reads may
  have undefined results. The solution is to call fseek(stream, 0L,
- seek_CUR) every time you switch between writing and reading (and vice
+ SEEK_CUR) every time you switch between writing and reading (and vice
  versa). Even if the program runs as expected without adding this
  additional call, it is important to do to avoid undefined behavior on
  some implementations. NOTE: We aren't checking return values in this
@@ -24,6 +24,19 @@
    fseek(..., 0L, SEEK_CUR) called for its synchronizing side effect.
 */
 
+/* The C99 standard, section 7.19.5.3 states:
+
+   When a file is opened with update mode ('+' as the second or third
+   character in the above list of mode argument values), both input
+   and output may be performed on the associated stream. However,
+   output shall not be directly followed by input without an
+   intervening call to the fflush function or to a file positioning
+   function (fseek, fsetpos, or rewind), and input shall not be
+   directly followed by output without an intervening call to a file
+   positioning function, unless the input operation encounters
+   endof-file.  Opening (or creating) a text file with update mode may
+   instead open (or create) a binary stream in some implementations.
+*/
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -43,12 +56,14 @@ void example(int fixUndefinedBehavior)
 		fputc('x', fs);
 		fputc('x', fs);
 		fputc('x', fs);
-		if(fixUndefinedBehavior)
+		if(fixUndefinedBehavior) // between write and read
 			// Appears to be a no-op, but has a synchronizing
 			// side-effect that will cause us to avoid undefined
 			// behavior be switching from write to read.
 			fseek(fs, 0L, SEEK_CUR);
 		int in = fgetc(fs);
+		if(fixUndefinedBehavior) // between read and write
+			fseek(fs, 0L, SEEK_CUR);
 		printf("read a byte; in = '%c'\n", (char)in);
 	}
 
