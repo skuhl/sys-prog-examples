@@ -1,8 +1,8 @@
 // Scott Kuhl
-//
-// This program demonstrates how to read a file into memory. It
-// provides a function which attempt to check for many of the errors
-// that might occur.
+
+/* This program demonstrates how to read a file into memory. It
+   provides a function which attempt to check for many of the errors
+   that might occur. */
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <stdio.h>
@@ -210,7 +210,10 @@ char *readfile_stdc(const char *filename, size_t *filesize)
 		return NULL;
 	}
 
-	// See if there is more to read than we expected.
+	/* See if there is more to read than we expected. This could
+	   happen at any point after we have read the bytes from the
+	   file. However, depending on the situation, this may or may not
+	   be considered an error. */
 	char oneMoreByte;
 	if(fread(&oneMoreByte, 1, 1, f) == 1)
 	{
