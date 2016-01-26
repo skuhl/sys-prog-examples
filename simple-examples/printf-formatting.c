@@ -54,11 +54,11 @@ int main(void)
 	float f=1.23987654f;
 	printf("float: %%f=%f\n", f);
 	printf("float: %%+f=%+f\n", f);
-	printf("float: |%%5.2f|=|%5.2f|\n", f); // (use 5 characters total for
-								   // number, 2 after decimal point, |
-								   // characters are there so you can
-								   // easily count how many characters
-								   // it uses up. It performs rounding!
+	printf("float: |%%5.2f|=|%5.2f|\n", f); /* (use 5 characters total for
+	                                           number, 2 after decimal point, |
+	                                           characters are there so you can
+	                                           easily count how many characters
+	                                           it uses up. It performs rounding! */
 	printf("float: |%%05.2f|=|%05.2f|\n", f); // same as above, pad with 0s
 	printf("float: %%f=%f %%F=%F\n", INFINITY, INFINITY); // capitalization
 	printf("float: %%e=%e\n", f); // sci. notation, lowercase e
