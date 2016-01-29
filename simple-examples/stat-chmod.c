@@ -31,7 +31,7 @@ int main(int argc, char *argv[])
 		exit(EXIT_FAILURE);
 	}
 
-	printf("File size: %llo bytes\n", fileStat.st_size);
+	printf("File size: %d bytes\n", (int) fileStat.st_size);
 	printf("Owner user ID: %d\n", fileStat.st_uid);
 	printf("Owner group ID: %d\n", fileStat.st_gid);
 
