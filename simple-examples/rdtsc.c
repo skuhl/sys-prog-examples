@@ -42,7 +42,7 @@ Compiled program can be inspected with "objdump -d rdtsc"
 
 
 // Use the preprocessor so we know definitively that these are placed inline
-#define RDTSC_START(cycles)      \
+#define RDTSC_START()            \
 	__asm__ volatile("CPUID\n\t" \
 	                 "RDTSC\n\t" \
 	                 "mov %%edx, %0\n\t" \
@@ -50,7 +50,7 @@ Compiled program can be inspected with "objdump -d rdtsc"
 	                 : "=r" (start_hi), "=r" (start_lo) \
 	                 :: "%rax", "%rbx", "%rcx", "%rdx");
 
-#define RDTSC_STOP(cycles)        \
+#define RDTSC_STOP()              \
 	__asm__ volatile("RDTSCP\n\t" \
 	                 "mov %%edx, %0\n\t" \
 	                 "mov %%eax, %1\n\t" \
@@ -69,8 +69,8 @@ uint64_t elapsed(uint32_t start_hi, uint32_t start_lo,
 
 int main(void)
 {
-	uint32_t end_hi, end_lo;
-	uint32_t start_hi, start_lo; 
+	uint32_t start_hi=0, start_lo=0; 
+	uint32_t   end_hi=0,   end_lo=0;
 
 	RDTSC_START();
 	sleep(1);
@@ -103,7 +103,7 @@ int main(void)
 		RDTSC_START();
 		// how fast is nothing at all?
 		RDTSC_STOP();
-	    uint64_t e = elapsed(start_hi, start_lo, end_hi, end_lo);
+		uint64_t e = elapsed(start_hi, start_lo, end_hi, end_lo);
 		printf("trial %d: %ld (NOTHING)\n", i, e);
 		totalTime += e;
 	}
