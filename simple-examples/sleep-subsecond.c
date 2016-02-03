@@ -1,8 +1,11 @@
 // Scott Kuhl
 
-// Demonstrates nanosleep() and usleep(). This example also uses
-// gettimeofday() to try to measure how long we slept for.
+/* Demonstrates POSIX functions nanosleep() and usleep(). This example
+   also uses POSIX function gettimeofday() to try to measure how long
+   we slept for.
+*/
 
+#define _GNU_SOURCE
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>   // usleep()

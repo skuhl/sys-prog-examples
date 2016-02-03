@@ -14,9 +14,11 @@
    See: https://en.wikipedia.org/wiki/Zombie_process
 */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
+
+#include <stdio.h>     // needed for printf()
+#include <stdlib.h>    // needed for exit()
+#include <unistd.h>    // needed for fork()
+#include <sys/types.h> // needed for for pid_t (Linux)
 int main(void)
 {
 	pid_t pid = fork();
