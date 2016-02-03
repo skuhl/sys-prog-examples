@@ -100,7 +100,7 @@ int main(void)
 	dirname_basename("./././");
 	dirname_basename(".././");
 	
-	printf("Reconstructed version versions are: dirname + '/' + basename\n");
+	printf("Reconstructed versions are: dirname + '/' + basename\n");
 	printf("The reconstructed version should be functionally equivalent to the original filename (although the actual path may be different.)");
 	
 }
