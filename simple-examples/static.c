@@ -1,3 +1,4 @@
+// Scott Kuhl
 #include <stdio.h>
 
 /* Static functions and static global variables are only visible in
