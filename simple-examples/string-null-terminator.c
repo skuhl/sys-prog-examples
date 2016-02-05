@@ -15,8 +15,16 @@ int main(void)
 
 	/* Since str3 does not have a terminating null byte, it will just
 	 * print bytes until it finds one. This could cause us to try to
-	 * access bytes that we are not supposed to access. */
+	 * access bytes that we are not supposed to access. If the byte
+	 * after str3 happens to be a null byte, than this program may run
+	 * as expected. However, if compiled on a different machine, with
+	 * different optimization settings, that could change.
+	 *
+	 * Even if this program doesn't crash or print garbage, Valgrind
+	 * should be able to catch this mistake.
+	 */
 	printf("%s\n", str3); // ERROR, could crash
+
 
 	/* Unless otherwise stated, you should assume that all functions
 	   that operate strings require null-terminated strings.
