@@ -23,6 +23,10 @@ int main(int argc, char *argv[])
 	for(int i=0; i<argc; i++)
 		printf("argv[%d]=%s\n", i, argv[i]);
 
+	// Try this: Can you use quotes around arguments on the command 
+	// line to get a single argument to contain multiple words 
+	// seperated by a space?
+
 	// Try this: Can you use quotes to make one of the arguments be an
 	// empty string?
 
