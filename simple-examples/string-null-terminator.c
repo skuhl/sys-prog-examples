@@ -1,6 +1,7 @@
 // Scott Kuhl
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 int main(void)
 {
@@ -24,6 +25,24 @@ int main(void)
 	 * should be able to catch this mistake.
 	 */
 	printf("%s\n", str3); // ERROR, could crash
+
+
+	// strlen() counts the number of non-null bytes. Therefore str2
+	// and str3 should be the same length according to strlen():
+	printf("strlen(str2)=%zu\n", strlen(str2));
+	printf("strlen(str3)=%zu\n", strlen(str3)); // ERROR, could crash
+	
+
+	char twoNull[] = { 'h','i','\0','w','o','r','l','d','\0' };
+	printf("%s\n", twoNull); // will print up to first null byte
+
+	// Use fwrite() to write 9 bytes to stdout. Will print all bytes,
+	// including null bytes (which probably won't show up in your
+	// terminal.
+	fwrite(twoNull, 9, 1, stdout);
+	printf("\n");
+	
+	
 
 
 	/* Unless otherwise stated, you should assume that all functions
