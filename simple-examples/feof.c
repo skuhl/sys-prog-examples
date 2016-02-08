@@ -54,5 +54,6 @@ int main(void)
 		printf("This should never happen. The file should only contain 8 bytes and the fread() above should always fail.\n");
 	}
 
+	fclose(in);
 	return 0;
 }
