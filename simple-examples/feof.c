@@ -3,7 +3,7 @@
 
 #define FILENAME "feof.temp"
 
-void main(void)
+int main(void)
 {
 	// NOTE: We should check return values for errors.
 
@@ -26,11 +26,15 @@ void main(void)
 	   feof() or ferror() to figure out if an error occurred or if you
 	   hit the end of the file.
 	*/
+
+	/* Here we are really at the end of the file, but we haven't tried
+	   reading past it yet. */
 	if(feof(in) == 0)
 		printf("First feof() says that we are NOT at the end of the file.\n");
 	else
 		printf("First feof() says that we ARE at the end of the file.\n");
 
+	/* Read one byte past the end of the file */
 	char b;
 	if(fread(&b, 1,1, in) == 0)
 	{
@@ -45,6 +49,10 @@ void main(void)
 			printf("ferror() says there ARE errors.\n");
 
 	}
-	
-	
+	else
+	{
+		printf("This should never happen. The file should only contain 8 bytes and the fread() above should always fail.\n");
+	}
+
+	return 0;
 }
