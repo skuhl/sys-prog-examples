@@ -27,8 +27,10 @@ int main(void)
 	printf("%s\n", str3); // ERROR, could crash
 
 
-	// strlen() counts the number of non-null bytes. Therefore str2
-	// and str3 should be the same length according to strlen():
+	// strlen() counts the number of non-null bytes. Although we might
+	// think str2 and str3 are the same length, strlen() might say that
+	// str3 is longer because may go past the end of our bytes looking
+	// for a null byte.
 	printf("strlen(str2)=%zu\n", strlen(str2));
 	printf("strlen(str3)=%zu\n", strlen(str3)); // ERROR, could crash
 	
@@ -38,7 +40,7 @@ int main(void)
 
 	// Use fwrite() to write 9 bytes to stdout. Will print all bytes,
 	// including null bytes (which probably won't show up in your
-	// terminal.
+	// terminal).
 	fwrite(twoNull, 9, 1, stdout);
 	printf("\n");
 	
