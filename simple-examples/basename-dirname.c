@@ -62,17 +62,26 @@ void dirname_basename(char *filename)
 	// strdup() makes a copy of a null-terminated string, we should
 	// free() the result.
 	char *copyForDir = strdup(filename); // don't forget to free()
-	char *dir = dirname(copyForDir);
+	char *dir = dirname(copyForDir); // this might change bytes in copyForDir
 	printf("      dirname: %s\n", dir);
 
 
 	char *copyForBase = strdup(filename); // don't forget to free()
-	char *base = basename(copyForBase);
+	char *base = basename(copyForBase);  // this might change bytes in copyForBase
 	printf("     basename: %s\n", base);
 
 	printf("reconstructed: %s/%s\n", dir, base);
+
+	/* Remember use the 'base' and 'dir' variables *before* we free
+	   these buffers. We have to use them before we free() because
+	   'base' and 'dir' might point to part of the memory in
+	   copyForBase or copyForDir. */
 	free(copyForDir);
 	free(copyForBase);
+
+	/* Note: we souldn't call free() on 'base' or 'dir'. We should
+	 * only call free() on the exact same thing that as was returned
+	 * from malloc(). strdup() calls malloc() for us. */
 
 	printf("\n");
 }
