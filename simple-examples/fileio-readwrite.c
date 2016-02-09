@@ -81,10 +81,10 @@ int main(void)
 	// Even if both of these print out the same result on your
 	// machine, the possibility for undefined behavior still exists.
 
-	printf("With undefined behavior:\n");
-	example(1);
-	
-	printf("Corrected the problem:\n");
+	printf("Undefined behavior:\n");
 	example(0);
 
+	printf("Correct!:\n");
+	example(1);
+	
 }
