@@ -54,12 +54,13 @@ int main(int argc, char* argv[])
 		   If the first character is a colon, then getopt() returns
 		   ':' instead of '?' to indicate a missing option argument.
 		   
-		   If one colon is after a character, than that option requires an
+		   If ONE colon is after a character, than that option requires an
 		   argument (i.e., "-f something" or "-fsomething").
 
-		   GNU Extension (not POSIX-compliant): If there are two
-		   colons after a character, you can optionally include an
-		   argument (i.e., "-f" and "-f something" are both valid).
+		   If there are TWO colons after a character, you can
+		   optionally include an argument (i.e., "-o" and
+		   "-osomething" are both valid). This is a GNU Extension and
+		   is not (not POSIX-compliant).
 		   
 		   So, ":af:" means that getopt() will return ":" if an
 		   argument is required for a option but isn't
@@ -101,10 +102,17 @@ int main(int argc, char* argv[])
 		}
 	}
 
-	/* If the program takes arguments that are not processed by
-	 * getopt, for example: "./getopt -a inputFile outputFile", then
-	 * you can process the remaining arguments here: */
-	for(int i=optind; i<argc; i++)
+	/* IMPORTANT: getopt() will "permute the contents of argv while it
+	   scans". Therefore, you shouldn't plan on using argv if you use
+	   getopt(). The ONLY time where you can use argv is to process
+	   any remaining arguments that getopt() didn't process. Those
+	   arguments will always be moved to the end of argv by
+	   getopt().
+
+	   The code below will print any remaining arguments
+	   (that don't begin with a '-' character).
+	*/
+	for(int i=optind; i<argc; i++) // optind is the index into argv that contains the first extra argument.
 		printf("Parameters not handled by getopt(): argv[%d]=%s\n", i, argv[i]);
 	
 	printf("Program exited normally\n");
