@@ -22,16 +22,23 @@ void readWriteInts(void)
 	   
 	   "+" allows us to read too.
 	   
-	   "b" isn't used by POSIX compliant systems like Linux but may be
-	   necessary for other systems.
-	
-	   See "man 3 fopen", the C99 specification, or the POSIX
-	   specification for more information.
-
-	   The following page also describes some of the differences
-	   between binary and non-binary streams according to the C
-	   standard:
-	   https://www.securecoding.cert.org/confluence/display/c/FIO14-C.+Understand+the+difference+between+text+mode+and+binary+mode+with+file+streams
+	   "b" says that we are writing bindary data (instead of text
+	   data). This flag isn't used by POSIX-compliant systems like
+	   Linux. On non-POSIX systems, the C programming language might
+	   translate '\n' into the appropriate newline character for your
+	   particular operating system. This translation process is
+	   disabled when a file is opened in binary mode. On POSIX
+	   systems, the '\n' character is the newline character, so no
+	   translation is necessary.
+	   
+	   For more information about text vs binary modes, see:
+	   
+	   * https://en.wikipedia.org/wiki/Newline
+	   
+	   * "man 3 fopen", the C99 specification, or the POSIX
+	     specification for more information.
+	     
+	   *  https://www.securecoding.cert.org/confluence/display/c/FIO14-C.+Understand+the+difference+between+text+mode+and+binary+mode+with+file+streams
 	*/
 	FILE *fp = fopen(FILENAME, "wb");
 	// Verify we opened the file
