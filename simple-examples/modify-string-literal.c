@@ -27,8 +27,8 @@ int main(void)
 		// A better way to declare this variable that would reduce the
 		// chances of you making a mistake:
 		// const char *literal = "Hello world";
-		*literal = 'X'; // This WON'T WORK because we are changing the string literal itself!
-		printf("%s\n", literal);
+		*literal = 'X'; // This MAY NOT WORK because we are changing the string literal itself!
+		printf("%s\n", literal); // Might work, but is actually undefined.
 	}
 
 	if( 0 ) // CHANGE ME TO 1 to see the error this code causes!
@@ -40,6 +40,17 @@ int main(void)
 		free(mallocStr); // WRONG!
 	}
 
+
+	// Try to check to see if the compiler is smart enough to store
+	// this string once even though it is used in two places in this
+	// program.
+	char *literal1 = "This is a literal.";
+	char *literal2 = "This is a literal.";
+	if(literal1 == literal2) // compare the two pointers, see if they are the same
+		printf("literal1 and literal2 point to the same address\n");
+	else
+		printf("literal1 and literal2 point to different addresses\n");
+	
 	
 	return 0;
 }
