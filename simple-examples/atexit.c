@@ -14,10 +14,10 @@ void func2(void)
 
 int main(void)
 {
-	printf("This is main() before we set up the atexit functions.");
+	printf("This is main() before we set up the atexit functions.\n");
 	atexit(func1);
 	atexit(func2);
-	printf("This is main() after we set up the atexit functions.");
+	printf("This is main() after we set up the atexit functions.\n");
 
 	// atexit() does not get called if we interrupt the program with a
 	// SIGINT signal (i.e., if we press Ctrl+C while the program is
