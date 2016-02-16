@@ -8,12 +8,15 @@
 #include <stdlib.h>
 #include <unistd.h>   // needed for fork()
 #include <sys/wait.h> // needed for wait()
+#include <sys/types.h> // needed for pit_t (on Linux)
 #include <signal.h>   // need for raise()
 
 int main(void)
 {
 	printf("Begin. This is PID: %d\n", getpid());
 
+	// pid_t is basically like an int---but it might be a different size.
+	printf("pid_t is %zu bytes\n", sizeof(pid_t));
 	pid_t forkReturn = fork();
 	if(forkReturn == -1)
 	{
