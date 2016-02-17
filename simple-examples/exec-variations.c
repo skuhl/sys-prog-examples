@@ -9,11 +9,17 @@
 
    l - You can pass parameters to the function. In this case, you can
    pass a variable number of parameters depending on how many
-   parameters the program needs.
+   parameters the program needs. You must include NULL after your last
+   parameter.
+
+   v - The arguments will be passed to the exec() function using an
+   array.
    
    p - The PATH environment variable is consulted when looking for the
    program.
-   
+
+   e - Allows you to specify environment variables that your program
+   should be run with.
 */
 
 #include <stdio.h>
@@ -94,12 +100,14 @@ int main(void)
 		exit(EXIT_FAILURE);
 	}
 
+	/* We can only get here if the exec*() function we call failed.
+
+	   Upon error, exec*() functions set errno. */
+	perror("exec-related problem");
 
 
 	printf("exec functions only return if there is an error. Therefore, this message is unlikely to be displayed.\n");
 
-	// Upon error, exec*() functions set errno.
-	perror("exec-related problem");
 	exit(EXIT_FAILURE);
 		
 	

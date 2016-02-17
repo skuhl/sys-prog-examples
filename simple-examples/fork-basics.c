@@ -47,10 +47,18 @@ int main(void)
 		//  - What if you comment out wait()?
 		//  - What if you wait() before you call fork()?
 		int childStatus = 0;
-		if(wait(&childStatus) == -1) 
+		pid_t waitReturned = wait(&childStatus);
+		if(waitReturned == -1) 
 		{
 			perror("wait");
 			exit(EXIT_FAILURE);
+		}
+		else
+		{
+			/* wait() returns the PID of the child that exited. Use
+			 * waitpid() to wait for a specific PID instead of waiting
+			 * for any child process. */
+			printf("wait() says that PID %d has exited.\n", waitReturned);
 		}
 		
 		/* childStatus contains the exit status (8 bits) and other

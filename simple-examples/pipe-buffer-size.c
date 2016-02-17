@@ -34,8 +34,9 @@ int main(void)
 	if(errno == EAGAIN || errno == EWOULDBLOCK)
 		printf("errno indicates that we would have blocked\n");
 
-	printf("wrote %d bytes into pipe\n", i);
-	
-	return 0;
+	printf("wrote %d bytes into pipe before we couldn't write any more.\n", i);
 
+	close(fd[0]);
+	close(fd[1]);
+	return 0;
 }
