@@ -1,7 +1,7 @@
 #include <stdio.h>
 
-void one();
-void two();
+int one(void);
+void two(void);
 
 int main(int argc, char **argv)
 {

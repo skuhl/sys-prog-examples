@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-int one()
+int one(void)
 {
 	printf("one\n");
 	return 1;
