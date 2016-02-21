@@ -13,11 +13,11 @@ libfoo.so: one.c two.c
 
 shared: libfoo.so main.c
 	rm -f libfoo.a  # force use of .so file
-	gcc -o shared main.c  -L. -lfoo 
+	gcc ${CFLAGS} -o shared main.c  -L. -lfoo 
 
 static: libfoo.a main.c
 	rm -f libfoo.so  # force use of .a file
-	gcc -o static main.c -L. -lfoo
+	gcc ${CFLAGS} -o static main.c -L. -lfoo
 
 dynamic: libfoo.so dlexample.c
 	rm -f libfoo.a  # force use of .so file
