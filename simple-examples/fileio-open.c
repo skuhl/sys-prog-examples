@@ -16,6 +16,14 @@ int main(void)
 	// Create a file and open it for read/write. Set permissions so
 	// only owner can read/write the file.  See "man 2 open" for more
 	// information.
+	//
+	// Third parameter to open() is required if O_CREAT is specified
+	// in the second paramter. The third parameter is the permission
+	// of the file that (might) get created. The 3rd parameter is in
+	// octal. In C, numbers that start with 0 are in
+	// octal. Alternatively, you can use predefined variables such as
+	// S_IRUSR (see the "man 2 open" for a complete least of available
+	// options.
 	int fd = open(FILENAME, O_CREAT|O_RDWR, 0600);
 	if(fd == -1) { perror("open"); exit(EXIT_FAILURE); };
 
