@@ -3,10 +3,24 @@
 #include <string.h>
 #include <locale.h>
 
-int main(void)
+int main(int argc, char *argv[])
 {
-	// If your locale supports UTF-8, then this example should print
-	// unicode characters:
+	/* By default, all C programs start with the "C" locale. Here, we
+	 * set the locale to what actually is our "native" locale
+	 * supported on this machine. In the US, the locale is often
+	 * en_US.UTF-8 which means the US variation of English using the
+	 * UTF-8 encoding.
+	 *
+	 * The man page for setlocale() explains that if the second
+	 * parameter is an empty string, setlocale() will set the locale
+	 * to the native locale of the machine.
+	 *
+	 * The main reason we call setlocale() in this in this program is
+	 * to simply show you what your locale is set to. If your native
+	 * locale is set to something that does not support UTF-8
+	 * encoding, then this example might not work (because your
+	 * terminal isn't expecting UTF-8)
+	 */
 	char* l = setlocale(LC_ALL, "");
 	if (l == NULL) {
 		printf("Locale not set\n");
