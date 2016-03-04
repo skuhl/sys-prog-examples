@@ -3,6 +3,10 @@
    about redeclaring functions that already exist. The following line
    of code tells the compiler to ensure that this header is included
    at most one time in any C file.
+
+   Problem: "#pragma once" is a part of any standards, but it is very
+   widely supported. For more information, see:
+   https://en.Wikipedia.org/wiki/Pragma_once
 */
 #pragma once
 
@@ -11,7 +15,6 @@
  *
  * See: https://en.Wikipedia.org/wiki/Include_guard
  */
-
 
 
 /* Declare the functions in our library */
