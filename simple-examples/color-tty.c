@@ -8,6 +8,24 @@
 // extra checks.
 
 #include <stdio.h>
+
+/* The \x at the beginning of each of these strings is a hexadecimal
+   literal. Therefore, \x1B is 00011011 in binary. If you consult an
+   ASCII table, you will see that this is the the "ESC" or "Escape"
+   character---which is a special non-printable character.
+
+   The 'ESC' followed by the '[' character is called CSI or "Control
+   Sequence Introducer".
+
+   Next, The ASCII number (one or two digits) indicates the color.
+
+   Finally, the 'm' ends the sequence.
+
+   Special note: You can combine multiple formats in one separated by
+   semicolons: \x1B[32;43m should produce green text on a yellow
+   background.
+*/
+   
 #define NRM  "\x1B[0m"
 
 #define BLK  "\x1B[30m"
@@ -42,6 +60,10 @@ void printColors(void)
 	printf(BLU "blue\n");
 	printf(MAG "magenta\n");
 	printf(CYN "cyan\n");
+
+	// In C, you can concatenate literal strings by just putting them
+	// next to each other. No commas or '+' symbols needed. This only
+	// works for string literals, not character arrays.
 	printf(WHT "white" NRM "\n"); // also, reset back to normal
 }
 
@@ -68,6 +90,8 @@ int main(void)
 	printColors();
 
 	printf("You can also " BOLD RED_BG "highlight" NRM " individual words.\n");
+
+	printf("Another \x1B[32;43mexample\n" NRM);
 
 	return 0;
 }
