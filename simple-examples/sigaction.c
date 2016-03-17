@@ -14,8 +14,11 @@
 volatile sig_atomic_t unprocessedSig = 0;
 
 
-/* Note: Our signal handler can get interrupted with other signals. We
- * should only call async-signal-safe functions, or simply do as
+/* Note: In this example, we use a signal mask set with sigaction() to
+ * ensure that another another nal handler is not called when we are
+ * already in the signal handler.
+ *
+ * We should only call async-signal-safe functions, or simply do as
  * little work as we can inside of our signal handler. */
 void sighandler(int signo)
 {
