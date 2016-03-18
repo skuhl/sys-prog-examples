@@ -6,6 +6,15 @@
  * the terminal successfully (i.e., it is placed in the foreground
  * again).
  *
+ * TRY THIS: Run this program normally.
+ *
+ * ALSO TRY THIS: Then, try running this program by putting it in the
+ * background. Most shells allow you to do this with the command
+ * "./signal-sigttin &". You should see that the shell pauses the
+ * program when it tries to read from stdin.  You can resume the
+ * program by running "fg". You will then be able to type something at
+ * the prompt.
+ *
  * This program uses a signal handler so you can see that the SIGTTIN
  * and SIGCONT signals get sent as expected.
  */
@@ -38,11 +47,23 @@ int main(void)
 	 * details you should be aware of regarding signals. */
 	signal(SIGTTIN, sighandler);
 	signal(SIGCONT, sighandler);
-	printf("Type something...\n");
-	char buf[100];
-	if(fgets(buf, 100, stdin) == NULL)
-		printf("fgets error.\n");
-	else
-		printf("I read: %s\n", buf);
+
+
+	/* Keep trying to read from stdin until we are successful. */
+	int keepTrying = 1;
+	while(keepTrying)
+	{
+		printf("Type something:\n");
+		
+		char buf[100];
+		if(fgets(buf, 100, stdin) == NULL)
+			printf("fgets error\n");
+		else
+		{
+			printf("I read: %s\n", buf);
+			keepTrying = 0;
+		}
+	}
+
 	return 0;
 }
