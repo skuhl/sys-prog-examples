@@ -32,10 +32,17 @@ int main(void)
 	tv.tv_sec = 5;
 	tv.tv_usec = 0; // microseconds
 
-	// The first parameter to select() is nfds: The number of the
-	// highest file descriptor that might be set in rfds.
+	// The first parameter to select() is nfds: The ONE PLUS the
+	// number of the highest file descriptor that might be set in
+	// rfds.
+	//
+	// select() will wait until a timeout occurs. Note that if we are
+	// waiting on more than one file descriptor (i.e., there is more
+	// than one bit enabled in the set), then select() will return
+	// when one or more of them is ready. In this example, we are only
+	// waiting on one fd.
 	
-	int retval = select(STDIN_FILENO, &rfds, NULL, NULL, &tv);
+	int retval = select(STDIN_FILENO+1, &rfds, NULL, NULL, &tv);
 	// select() may have changed the value of tv. Linux sets it to the
 	// remaining time that wasn't slept. Many other implementations do
 	// not do this. The POSIX standard permits either behavior.
@@ -43,9 +50,20 @@ int main(void)
 	if (retval == -1)
 		perror("select()");
 	else if (retval)
-		printf("There is data to read from the file descriptor.\n");
+		printf("There is data to read from the file descriptor (%d of the fds are ready).\n", retval);
 	else
 		printf("We timed out waiting for there to be data to read from the file descriptor.\n");
+
+
+	/* Try to read the bytes from stdin using read(). If we don't do
+	 * this, the message that the user typed might instead get sent to
+	 * the shell!
+	 */
+	if(1) // TRY THIS: Change this to 0!
+	{
+		char buf[1024];
+		read(STDIN_FILENO, buf, 1024);
+	}
 
 	exit(EXIT_SUCCESS);
 }
