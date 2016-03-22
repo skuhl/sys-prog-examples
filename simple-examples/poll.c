@@ -42,5 +42,17 @@ int main(void)
 	else
 		printf("No data within five seconds.\n");
 
+
+	/* Try to read the bytes from stdin using read(). If we don't do
+	 * this, the message that the user typed might instead get sent to
+	 * the shell!
+	 */
+	if(1) // TRY THIS: Change this to 0!
+	{
+		char buf[1024];
+		read(STDIN_FILENO, buf, 1024);
+	}
+
+	
 	exit(EXIT_SUCCESS);
 }
