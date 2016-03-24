@@ -7,6 +7,7 @@
 #include <sys/wait.h>
 #include <unistd.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <errno.h>
 
@@ -16,7 +17,7 @@
 int main (void)
 {
 	int fd[2];
-	pipe(fd);
+	pipe(fd);  // pipe() could return an error. I'm not checking it.
 
 	int child1 = fork();
 	if(child1 == 0) /* we are child 1 */
@@ -26,6 +27,10 @@ int main (void)
 		// Make the fd for our pipe have the same fd number as stdout:
 		dup2(fd[WRITE_END], STDOUT_FILENO);
 		execlp("ls", "ls", "-al", NULL);
+		// execlp() does not return (except when an error occurred)
+		
+		printf("execlp() failed.\n");
+		exit(EXIT_FAILURE); // exit child process if exec fails.
 	}
 
 	/* Only parent gets here. */
@@ -38,7 +43,10 @@ int main (void)
 		dup2(fd[READ_END], STDIN_FILENO);
 		// change every 's' into an 'X'
 		execlp("tr", "tr","s", "X",NULL);
-		// execlp() does not return (except when an error occurred
+		// execlp() does not return (except when an error occurred)
+
+		printf("execlp() failed.\n");
+		exit(EXIT_FAILURE); // exit child process if exec fails.
 	}
 	/* Only parent gets here. If parent doesn't close the WRITE_END of
 	 * the pipe, then child2 might not exit because the parent could
