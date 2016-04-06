@@ -4,6 +4,9 @@
 #include <stdlib.h>
 #include <string.h>
 
+// For more information about string literals, see:
+// https://www.securecoding.cert.org/confluence/display/c/STR30-C.+Do+not+attempt+to+modify+string+literals
+// http://programmers.stackexchange.com/questions/294748/why-are-c-string-literals-read-only
 int main(void)
 {
 	// This will work fine, strdup() will malloc some space.

@@ -1,6 +1,8 @@
 /* Scott Kuhl
 
-   This program prints a message if stdin is associated with a terminal or not. Try running this program two ways:
+   This program prints a message if stdin, stdout, and stderr are
+   associated with a terminal or not. Try running this program two
+   ways:
 
    "./isatty" will indicate that you are running it in a terminal.
 
@@ -26,8 +28,11 @@
 
 void checktty(int fd, const char *name)
 {
+	/* isatty() always returns either 0 (error or it is not a terminal) or 1
+	 * (it is a terminal). */
 	if(isatty(fd)==0)
 	{
+		/* See the man page for all of the possible error cases */
 		if(errno == EINVAL || errno == ENOTTY)
 			printf("%s is not a terminal.\n", name);
 		else
@@ -36,7 +41,7 @@ void checktty(int fd, const char *name)
 			perror("isatty");
 		}
 	}
-	else
+	else 
 		printf("%s is a terminal.\n", name);
 }
 
