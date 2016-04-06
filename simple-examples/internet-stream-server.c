@@ -158,7 +158,8 @@ int main(void)
 	freeaddrinfo(socketaddrinfo); // done with socketaddrinfo
 
 	printf("Press Ctrl+C to exit server.\n");
-	printf("Point your web browser to: http://127.0.0.1:%s\n", port);
+	printf("Run a web browser on the same computer as you run the server and point it to:\n");
+	printf("http://127.0.0.1:%s\n", port);
 	
 	while(1)
 	{
