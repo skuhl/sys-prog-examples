@@ -123,6 +123,11 @@ void example_bind(int sock, struct addrinfo *ai)
 	if(bind(sock, ai->ai_addr, ai->ai_addrlen) == -1)
 	{
 		perror("server: bind() failed: ");
+		printf("\n");
+		printf("If bind failed because the address is already in use,\n");
+		printf("it is likely because a server is already running on\n");
+		printf("the same port. Only one server can listen on each port\n");
+		printf("at any given time.\n");
 		close(sock);
 		exit(EXIT_FAILURE);
 	}
