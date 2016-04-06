@@ -115,8 +115,11 @@ int main(void)
 		   there are far more than 1024 bytes sent to us on this
 		   socket, recv() will only give us the bytes that the OS can
 		   provide us. If there are no bytes for us to read (and the
-		   connection is open and without error), recv() if there are
-		   no bytes to read. */
+		   connection is open and without error), recv() will block
+		   until there are bytes available.
+		   
+		   Note that it is possible to make recv() non-blocking with
+		   fcntl(). */
 		recvdBytes = recv(sock, recvbuf, 1024, 0);
 		if(recvdBytes > 0) // print bytes we received to console
 			fwrite(recvbuf, 1, recvdBytes, stdout);
