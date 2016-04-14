@@ -54,7 +54,13 @@ int main(int argc, char *argv[])
 	// String literals are stored in the .text section of memory (at the bottom of the stack)
 	printAddress("str1 inside main (text)", str1);
 
-	/* malloc() usually uses the heap to allocate memory. It does so by calling sbrk() to move the "program break" which is the top of the heap. Moving the "program break" to a higher value will give your process more memory. malloc() does this for you. If change the program break with sbrk(), you might break other functions that actually use malloc(). */
+	/* malloc() usually uses the heap to allocate memory. It does so
+	 * by calling sbrk() to move the "program break" which is the top
+	 * of the heap. Moving the "program break" to a higher value will
+	 * give your process more memory. malloc() does this for you while
+	 * also assuming that it is the only function that is calling
+	 * sbrk(). If you change the program break with sbrk(), you might
+	 * break malloc() and/or other functions. */
 	printAddress("sbrk (heap)", sbrk(0));
 	void *m = malloc(1024);
 	printAddress("m (heap)", m);
