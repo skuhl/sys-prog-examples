@@ -100,8 +100,8 @@ int main(void)
 		exit(EXIT_FAILURE);
 	}
 
-	/* We can only get here if the exec*() function we call failed.
-
+	/* We can only get here if the exec*() function failed.
+	   
 	   Upon error, exec*() functions set errno. */
 	perror("exec-related problem");
 
