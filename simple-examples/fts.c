@@ -1,14 +1,21 @@
 // Scott Kuhl
 
 // fts() traverses a directory hierarchy. It works on Linux, Mac OS X,
-// and the BSDs. A POSIX standard function which provides similar
-// functionality is demonstrated in ftw.c
+// and the BSDs.
+//
+// fts() is the recommended way to traverse directories on Mac OS X
+// because fts() is considered "legacy".
+//
+// A POSIX standard function which provides similar functionality is
+// demonstrated in ftw.c
 
+#define _BSD_SOURCE // required to make this program work on Linux
 #include <stdio.h>
 #include <stdlib.h>
 
-#include <sys/errno.h>
+#include <sys/errno.h> // lets us directly access errno
 
+// includes recommended by "man fts":
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fts.h>

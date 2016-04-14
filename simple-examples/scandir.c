@@ -11,6 +11,9 @@ void printFilesInDir(char *dir)
 		return;
 
 	printf("#### Files in directory '%s':\n", dir);
+
+	/* See man page for readdir() for a description of the dirent
+	 * struct */
 	struct dirent **dirList;
 	int count = scandir(dir, &dirList, NULL, alphasort);
 	if(count == -1)

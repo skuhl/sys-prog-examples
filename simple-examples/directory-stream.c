@@ -17,7 +17,9 @@ int main(void)
 		perror("opendir");
 		exit(EXIT_FAILURE);
 	}
-	
+
+	/* See man page for readdir() for a description of the dirent
+	 * struct */
 	struct dirent* result;
 	struct dirent currentEntry;
 	while(1)
