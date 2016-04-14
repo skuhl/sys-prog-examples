@@ -1,5 +1,9 @@
 // Scott Kuhl
 //
+// ftw() is a POSIX function which traverses a directory
+// hierarchy. New code for Linux, OS X and BSDs, should NOT use
+// ftw(). See fts.c for an example of what you should use instead.
+// 
 // This example is simplified from the example in the man page. It
 // recursively prints out all of the files in the current directory.
 #define _GNU_SOURCE

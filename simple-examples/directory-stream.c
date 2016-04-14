@@ -1,6 +1,7 @@
 // Scott Kuhl
 //
-// This demonstrates how to use directory streams.
+// This demonstrates how to use directory streams which allows you to
+// get a list of files in a directory.
 #define _GNU_SOURCE
 #include <stdio.h>
 #include <stdlib.h>
