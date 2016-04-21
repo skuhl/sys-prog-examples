@@ -24,7 +24,7 @@ int main(void)
 {
 	/* An array of paths to traverse. Each path must be null
 	 * terminated and the list must end with a NULL pointer. */
-	char *paths[] = { ".", NULL };
+	char *paths[] = { "/tmp/test-tree-1", NULL };
 	
 	/* 2nd parameter: An options parameter. Must include either
 	   FTS_PHYSICAL or FTS_LOGICAL---they change how symbolic links
@@ -40,31 +40,32 @@ int main(void)
 		exit(EXIT_FAILURE);
 	}
 
-	while(1)
+	while(1) // call fts_read() enough times to get each file
 	{
-		FTSENT *ent = fts_read(ftsp);
+		FTSENT *ent = fts_read(ftsp); // get next entry (could be file or directory).
 		if(ent == NULL)
 		{
 			if(errno == 0)
 				break; // No more items, bail out of while loop
 			else
 			{
+				// fts_read() had an error.
 				perror("fts_read");
 				exit(EXIT_FAILURE);
 			}
 		}
 			
-			
-		if(ent->fts_info & FTS_D)
+		// Given a "entry", determine if it is a file or directory
+		if(ent->fts_info & FTS_D)   // We are entering into a directory
 			printf("Enter dir: ");
-		else if(ent->fts_info & FTS_DP)
+		else if(ent->fts_info & FTS_DP) // We are exiting a directory
 			printf("Exit dir:  ");
-		else if(ent->fts_info & FTS_F)
+		else if(ent->fts_info & FTS_F) // The entry is a file.
 			printf("File:      ");
-		else
+		else // entry is something else
 			printf("Other:     ");
 
-		// print path to file
+		// print path to file after the label we printed above.
 		printf("%s\n", ent->fts_path);
 	}
 
