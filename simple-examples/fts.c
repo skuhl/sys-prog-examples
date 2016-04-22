@@ -24,7 +24,7 @@ int main(void)
 {
 	/* An array of paths to traverse. Each path must be null
 	 * terminated and the list must end with a NULL pointer. */
-	char *paths[] = { "/tmp/test-tree-1", NULL };
+	char *paths[] = { ".", NULL };
 	
 	/* 2nd parameter: An options parameter. Must include either
 	   FTS_PHYSICAL or FTS_LOGICAL---they change how symbolic links
