@@ -12,6 +12,7 @@
 #define _BSD_SOURCE // required to make this program work on Linux
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h> // for getcwd()
 
 #include <sys/errno.h> // lets us directly access errno
 
@@ -29,6 +30,13 @@ int main(void)
 	/* 2nd parameter: An options parameter. Must include either
 	   FTS_PHYSICAL or FTS_LOGICAL---they change how symbolic links
 	   are handled.
+
+	   The 2nd parameter can also include the FTS_NOCHDIR bit (with a
+	   bitwise OR) which causes fts to skip changing into other
+	   directories. I.e., fts will call chdir() to literally cause
+	   your program to behave as if it is running into another
+	   directory until it exits that directory. See "man fts" for more
+	   information.
 
 	   Last parameter is a comparator which you can optionally provide
 	   to change the traversal of the filesystem hierarchy.
@@ -67,6 +75,17 @@ int main(void)
 
 		// print path to file after the label we printed above.
 		printf("%s\n", ent->fts_path);
+
+		// Print our current working directory:
+		if(0) // TRY THIS: Change this to 1, try FTS_NOCHDIR option described above
+		{
+			char buf[2048];
+			char *c = getcwd(buf, 2048);
+			if(c == NULL)
+				perror("getcwd");
+			else
+				printf("current working directory: %s\n", c);
+		}
 	}
 
 	// close fts and check for error closing.
