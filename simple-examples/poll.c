@@ -37,10 +37,22 @@ int main(void)
 		
 	if (retval == -1)
 		perror("poll()");
-	else if (retval)
-		printf("Data is available now.\n");
+	else if (retval == 0)
+		printf("Timed out. No data within five seconds.\n");
 	else
-		printf("No data within five seconds.\n");
+	{
+		printf("Data is available now.\n");
+
+		// You can get more information from fds.revents---which
+		// poll() uses to output information. For example, you can
+		// trigger this by calling close(STDIN_FILENO) prior to
+		// calling poll.
+		if(fds.revents & POLLNVAL)
+		{
+			printf("file descriptor was bad\n");
+		}
+	}
+
 
 
 	/* Try to read the bytes from stdin using read(). If we don't do
