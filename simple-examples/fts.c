@@ -12,6 +12,7 @@
 #define _BSD_SOURCE // required to make this program work on Linux
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h> // for getcwd()
 
 #include <sys/errno.h> // lets us directly access errno
 
@@ -30,6 +31,13 @@ int main(void)
 	   FTS_PHYSICAL or FTS_LOGICAL---they change how symbolic links
 	   are handled.
 
+	   The 2nd parameter can also include the FTS_NOCHDIR bit (with a
+	   bitwise OR) which causes fts to skip changing into other
+	   directories. I.e., fts will call chdir() to literally cause
+	   your program to behave as if it is running into another
+	   directory until it exits that directory. See "man fts" for more
+	   information.
+
 	   Last parameter is a comparator which you can optionally provide
 	   to change the traversal of the filesystem hierarchy.
 	*/
@@ -40,32 +48,44 @@ int main(void)
 		exit(EXIT_FAILURE);
 	}
 
-	while(1)
+	while(1) // call fts_read() enough times to get each file
 	{
-		FTSENT *ent = fts_read(ftsp);
+		FTSENT *ent = fts_read(ftsp); // get next entry (could be file or directory).
 		if(ent == NULL)
 		{
 			if(errno == 0)
 				break; // No more items, bail out of while loop
 			else
 			{
+				// fts_read() had an error.
 				perror("fts_read");
 				exit(EXIT_FAILURE);
 			}
 		}
 			
-			
-		if(ent->fts_info & FTS_D)
+		// Given a "entry", determine if it is a file or directory
+		if(ent->fts_info & FTS_D)   // We are entering into a directory
 			printf("Enter dir: ");
-		else if(ent->fts_info & FTS_DP)
+		else if(ent->fts_info & FTS_DP) // We are exiting a directory
 			printf("Exit dir:  ");
-		else if(ent->fts_info & FTS_F)
+		else if(ent->fts_info & FTS_F) // The entry is a file.
 			printf("File:      ");
-		else
+		else // entry is something else
 			printf("Other:     ");
 
-		// print path to file
+		// print path to file after the label we printed above.
 		printf("%s\n", ent->fts_path);
+
+		// Print our current working directory:
+		if(0) // TRY THIS: Change this to 1, try FTS_NOCHDIR option described above
+		{
+			char buf[2048];
+			char *c = getcwd(buf, 2048);
+			if(c == NULL)
+				perror("getcwd");
+			else
+				printf("current working directory: %s\n", c);
+		}
 	}
 
 	// close fts and check for error closing.
