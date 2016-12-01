@@ -4,8 +4,8 @@
 // allocate a huge amount of space on the stack, causing the program
 // to crash.
 //
-// Run "limit" or "limits" from the command-line to see the maximum
-// stack size allowed.
+// Run "ulimit -a", "limit", "limits" from the command-line to see the
+// maximum stack size allowed.
 //
 // You can avoid this problem by allocating large amounts of space on
 // the heap (with malloc()) or using Making the large array a global
