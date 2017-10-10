@@ -39,7 +39,7 @@ int main(void)
 	// not overlap. Use memmove() instead if they might overlap.
 	printf("Copy B into A with memcpy()");
 	resetArrays();
-	memcpy(arrayA, arrayB, sizeof(float)*3);
+	memcpy(arrayA, arrayB, sizeof(int)*3);
 	printArrays();
 
 
