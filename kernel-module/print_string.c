@@ -29,7 +29,8 @@ static void print_string(char *str)
 	/* 
 	 * The tty for the current task, for 2.6.6+ kernels 
 	 */
-	my_tty = current->signal->tty;
+	//my_tty = current->signal->tty;
+	my_tty = get_current_tty();
 #endif
 
 	/* 
