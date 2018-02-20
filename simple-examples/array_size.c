@@ -14,7 +14,7 @@
 void caveat(int three[], char hello[])
 {
 	printf("Caveat:\n");
-	/* The behavior of sizeof() chances when it is called on an array
+	/* The behavior of sizeof() changes when it is called on an array
 	 * that is passed as a parameter. sizeof(three) and sizeof(hello)
 	 * will now be the size of a pointer on this machine. */
 	printf("items in three: %d / %d = %d\n", (int) sizeof(three), (int) sizeof(three[0]), (int) ARRAY_SIZE(three));
