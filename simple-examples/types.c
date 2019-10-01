@@ -1,8 +1,9 @@
 // Scott Kuhl
 #include <stdio.h>
 #include <stdlib.h>
+#include <conio.h>
 
-int main(void)
+void main()
 {
 	// Two literal strings can be concatenated if placed next to each
 	// other.
@@ -43,6 +44,4 @@ int main(void)
 	int hexadecimal = 0x0a;
 	int binary = 0b1010; // gcc extension.
 	printf("%d %d %d %d\n", decimal, octal, hexadecimal, binary);
-
-	return 0;
 }
